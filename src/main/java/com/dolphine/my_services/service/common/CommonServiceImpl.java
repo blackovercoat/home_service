@@ -24,11 +24,11 @@ public class CommonServiceImpl implements CommonService{
         try {
             byte[] bytes = file.getBytes();
             String path = context.getRealPath("/resources/images");
-            System.out.println(path);
+            System.out.println("Path:"+path);
             File dir =  new File(path);
             if(!dir.exists())
                 dir.mkdirs();
-            String sourceFile = path + "\\" + id +"n"+ file.getOriginalFilename();
+            String sourceFile = path + "/" + id +"n"+ file.getOriginalFilename();
             System.out.println(sourceFile);
             File serverFile  = new File(sourceFile);
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile,true));
