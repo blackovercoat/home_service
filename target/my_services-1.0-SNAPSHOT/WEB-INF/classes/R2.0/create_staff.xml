@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="create_table_staff" author="bnguyen">
+
+        <createTable tableName="staff" >
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false"
+                             primaryKeyName="pk_staff_id"
+                             primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(255)">
+                <constraints nullable="false"
+                             uniqueConstraintName="const_unique_staff_phone_number"
+                             unique="true"/>
+            </column>
+            <column name="provider_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_staff_provider_id"
+                             references="provider(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

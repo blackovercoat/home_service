@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_customer">
+
+        <insert tableName="customer">
+            <column name="name" value="Long"/>
+            <column name="email" type="varchar(255)" value="volong@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0906258445"/>
+            <column name="address" type="varchar(255)" value="31 phan chau trinh"/>
+        </insert>
+
+        <insert tableName="customer">
+            <column name="name" value="Duong"/>
+            <column name="email" type="varchar(255)" value="duongminh@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0125486425"/>
+            <column name="address" type="varchar(255)" value="31 tran phu"/>
+        </insert>
+
+        <insert tableName="customer">
+            <column name="name" value="Oanh"/>
+            <column name="email" type="varchar(255)" value="oanhtran@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0123356789"/>
+            <column name="address" type="varchar(255)" value="k7/25 Quang Trung"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

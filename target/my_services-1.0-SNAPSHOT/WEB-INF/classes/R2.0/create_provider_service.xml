@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="create_table_provider_service" author="bnguyen">
+        <createTable tableName="provider_service">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false"
+                             primaryKeyName="pk_provider_service_id"
+                             primaryKey="true"/>
+            </column>
+            <column name="provider_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_provider_service_provider_id"
+                             references="provider(id)"/>
+            </column>
+            <column name="service_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_provider_service_service_id"
+                             references="service(id)"/>
+            </column>
+            <column name="max_price" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="min_price" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

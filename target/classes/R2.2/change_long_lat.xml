@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet author="bnguyen" id="change_long_lat_data">
+        <modifyDataType
+            columnName="longitude"
+            newDataType="float"
+            tableName="customer"/>
+        <modifyDataType
+                columnName="latitude"
+                newDataType="float"
+                tableName="customer"/>
+        <modifyDataType
+                columnName="longitude"
+                newDataType="float"
+                tableName="provider"/>
+        <modifyDataType
+                columnName="latitude"
+                newDataType="float"
+                tableName="provider"/>
+        <addDefaultValue columnDataType="float"
+                         columnName="longitude"
+                         defaultValue="0.0"
+                         tableName="customer"/>
+        <addDefaultValue columnDataType="float"
+                         columnName="latitude"
+                         defaultValue="0.0"
+                         tableName="customer"/>
+        <addDefaultValue columnDataType="float"
+                         columnName="longitude"
+                         defaultValue="0.0"
+                         tableName="provider"/>
+        <addDefaultValue columnDataType="float"
+                         columnName="latitude"
+                         defaultValue="0.0"
+                         tableName="provider"/>
+
+        <update tableName="customer">
+            <column name="longitude" value="0.0"/>
+            <column name="latitude" value="0.0"/>
+            <where>id='1'</where>
+        </update>
+        <update tableName="customer">
+            <column name="longitude" value="0.0"/>
+            <column name="latitude" value="0.0"/>
+            <where>id='2'</where>
+        </update>
+        <update tableName="customer">
+            <column name="longitude" value="0.0"/>
+            <column name="latitude" value="0.0"/>
+            <where>id='3'</where>
+        </update>
+
+        <update tableName="provider">
+            <column name="longitude" value="0.0"/>
+            <column name="latitude" value="0.0"/>
+            <where>id='1'</where>
+        </update>
+        <update tableName="provider">
+            <column name="longitude" value="0.0"/>
+            <column name="latitude" value="0.0"/>
+            <where>id='2'</where>
+        </update>
+        <update tableName="provider">
+            <column name="longitude" value="0.0"/>
+            <column name="latitude" value="0.0"/>
+            <where>id='3'</where>
+        </update>
+        <update tableName="provider">
+            <column name="longitude" value="0.0"/>
+            <column name="latitude" value="0.0"/>
+            <where>id='4'</where>
+        </update>
+
+    </changeSet>
+</databaseChangeLog>

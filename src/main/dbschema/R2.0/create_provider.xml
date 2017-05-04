@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="create_table_provider" author="bnguyen">
+
+        <createTable tableName="provider" >
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false"
+                             primaryKeyName="pk_provider_id"
+                             primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"
+                             uniqueConstraintName="const_unique_provider_email"
+                             unique="true"/>
+            </column>
+            <column name="phone_number" type="varchar(255)">
+                <constraints nullable="false"
+                             uniqueConstraintName="const_unique_provider_phone_number"
+                             unique="true"/>
+            </column>
+            <column name="address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="latitude" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

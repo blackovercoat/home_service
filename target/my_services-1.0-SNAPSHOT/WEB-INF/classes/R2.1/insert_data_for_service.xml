@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_service">
+        <insert tableName="service">
+            <column name="name" value="clean kitchen"/>
+            <column name="description" value="clean your kitchen"/>
+            <column name="catalog_id" value="1"/>
+        </insert>
+
+        <insert tableName="service">
+            <column name="name" value="clean bathroom"/>
+            <column name="description" value="clean your bathroom"/>
+            <column name="catalog_id" value="1"/>
+        </insert>
+
+        <insert tableName="service">
+            <column name="name" value="clean living room"/>
+            <column name="description" value="clean your living room"/>
+            <column name="catalog_id" value="1"/>
+        </insert>
+
+        <insert tableName="service">
+            <column name="name" value="clean all room"/>
+            <column name="description" value="clean all your room"/>
+            <column name="catalog_id" value="1"/>
+        </insert>
+
+        <insert tableName="service">
+            <column name="name" value="repair washing machine"/>
+            <column name="description" value="repair your washing machine"/>
+            <column name="catalog_id" value="2"/>
+        </insert>
+
+        <insert tableName="service">
+            <column name="name" value="repair car"/>
+            <column name="description" value="repair your car"/>
+            <column name="catalog_id" value="2"/>
+        </insert>
+
+        <insert tableName="service">
+            <column name="name" value="electric repair"/>
+            <column name="description" value="repair your electrical system"/>
+            <column name="catalog_id" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

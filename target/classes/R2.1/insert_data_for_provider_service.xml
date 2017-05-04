@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_provider_service">
+        <insert tableName="provider_service">
+            <column name="provider_id" value="1"/>
+            <column name="service_id" value="1"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="1"/>
+            <column name="service_id" value="2"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="1"/>
+            <column name="service_id" value="3"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="1"/>
+            <column name="service_id" value="4"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="2"/>
+            <column name="service_id" value="1"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="2"/>
+            <column name="service_id" value="2"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="3"/>
+            <column name="service_id" value="5"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="3"/>
+            <column name="service_id" value="6"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="4"/>
+            <column name="service_id" value="6"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="4"/>
+            <column name="service_id" value="1"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="4"/>
+            <column name="service_id" value="2"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+
+        <insert tableName="provider_service">
+            <column name="provider_id" value="4"/>
+            <column name="service_id" value="3"/>
+            <column name="max_price" value="150000"/>
+            <column name="min_price" value="50000"/>
+            <column name="description" value="abc best"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

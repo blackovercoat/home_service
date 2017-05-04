@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="create_table_rating" author="bnguyen">
+        <createTable tableName="rating" >
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false"
+                             primaryKeyName="pk_rating_id"
+                             primaryKey="true"/>
+            </column>
+            <column name="provider_service_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_rating_provider_service_id"
+                             references="provider_service(id)"/>
+            </column>
+            <column name="customer_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_rating_customer_id"
+                             references="customer(id)"/>
+            </column>
+            <column name="content" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="score" type="float">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

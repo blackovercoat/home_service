@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="create_table_booking_detail" author="bnguyen">
+
+        <createTable tableName="booking_detail" >
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false"
+                             primaryKeyName="pk_booking_detail_id"
+                             primaryKey="true"/>
+            </column>
+            <column name="booking_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_booking_detail_booking_id"
+                             references="booking(id)"/>
+            </column>
+            <column name="provider_service_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_booking_detail_provider_service_id"
+                             references="provider_service(id)"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="working_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

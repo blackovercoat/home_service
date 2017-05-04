@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_booking">
+        <insert tableName="booking">
+            <column name="customer_id" value="1"/>
+            <column name="booking_date" value="12/11/2016"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="1"/>
+            <column name="booking_date" value="11/11/2016"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="1"/>
+            <column name="booking_date" value="01/13/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="1"/>
+            <column name="booking_date" value="02/13/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="1"/>
+            <column name="booking_date" value="04/13/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="2"/>
+            <column name="booking_date" value="01/15/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="2"/>
+            <column name="booking_date" value="04/14/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="2"/>
+            <column name="booking_date" value="03/017/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="2"/>
+            <column name="booking_date" value="02/20/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="2"/>
+            <column name="booking_date" value="11/22/2016"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="2"/>
+            <column name="booking_date" value="11/11/2016"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="2"/>
+            <column name="booking_date" value="01/16/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="2"/>
+            <column name="booking_date" value="02/01/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="3"/>
+            <column name="booking_date" value="01/12/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="3"/>
+            <column name="booking_date" value="01/21/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="3"/>
+            <column name="booking_date" value="03/13/2017"/>
+        </insert>
+
+        <insert tableName="booking">
+            <column name="customer_id" value="3"/>
+            <column name="booking_date" value="04/15/2017"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

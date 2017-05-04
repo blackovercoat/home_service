@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <include file="src/main/dbschema/R1.0/create_account.xml" />
+    <include file="src/main/dbschema/R1.0/create_role.xml" />
+    <include file="src/main/dbschema/R1.0/create_account_role.xml" />
+    <include file="src/main/dbschema/R1.0/insert_data_for_account.xml" />
+    <include file="src/main/dbschema/R1.0/insert_data_for_role.xml" />
+    <include file="src/main/dbschema/R1.0/insert_data_for_account_role.xml" />
+    <include file="src/main/dbschema/R1.0/create_customer.xml" />
+    <include file="src/main/dbschema/R1.0/insert_data_for_customer.xml" />
+    <include file="src/main/dbschema/R1.0/drop_tables.xml" />
+
+    <include file="src/main/dbschema/R2.0/create_account.xml" />
+    <include file="src/main/dbschema/R2.0/create_role.xml" />
+    <include file="src/main/dbschema/R2.0/create_account_role.xml" />
+    <include file="src/main/dbschema/R2.0/insert_data_for_account.xml" />
+    <include file="src/main/dbschema/R2.0/insert_data_for_role.xml" />
+    <include file="src/main/dbschema/R2.0/insert_data_for_account_role.xml" />
+    <include file="src/main/dbschema/R2.0/create_customer.xml" />
+    <include file="src/main/dbschema/R2.0/create_provider.xml" />
+    <include file="src/main/dbschema/R2.0/create_staff.xml" />
+    <include file="src/main/dbschema/R2.0/create_catalog.xml" />
+    <include file="src/main/dbschema/R2.0/create_service.xml" />
+    <include file="src/main/dbschema/R2.0/create_provider_service.xml" />
+    <include file="src/main/dbschema/R2.0/create_rating.xml" />
+    <include file="src/main/dbschema/R2.0/create_booking.xml" />
+    <include file="src/main/dbschema/R2.0/create_booking_detail.xml" />
+    <include file="src/main/dbschema/R2.0/insert_data_for_customer.xml" />
+    <include file="src/main/dbschema/R2.0/insert_data_for_provider.xml" />
+    <include file="src/main/dbschema/R2.1/insert_data_for_catalog.xml" />
+    <include file="src/main/dbschema/R2.1/insert_data_for_service.xml" />
+    <include file="src/main/dbschema/R2.1/add_constraint_service.xml" />
+    <include file="src/main/dbschema/R2.1/insert_data_for_provider_service.xml" />
+    <include file="src/main/dbschema/R2.1/insert_data_for_rating.xml" />
+    <include file="src/main/dbschema/R2.1/insert_data_for_booking.xml" />
+    <include file="src/main/dbschema/R2.1/insert_data_for_booking_detail.xml"/>
+
+    <include file="src/main/dbschema/R2.2/alter_booking_detail.xml"/>
+    <include file="src/main/dbschema/R2.2/add_new_columns_for_rating.xml"/>
+    <include file="src/main/dbschema/R2.2/add_new_columns_for_provider_service.xml"/>
+    <include file="src/main/dbschema/R2.2/add_new_columns_for_booking.xml"/>
+    <include file="src/main/dbschema/R2.2/add_new_columns_for_provider.xml"/>
+    <include file="src/main/dbschema/R2.2/add_new_columns_for_service.xml"/>
+    <include file="src/main/dbschema/R2.2/insert_data_for_staff.xml"/>
+    <include file="src/main/dbschema/R2.2/insert_data_for_booking.xml" />
+    <include file="src/main/dbschema/R2.2/insert_data_for_booking_detail.xml" />
+    <include file="src/main/dbschema/R2.2/add_constraint_booking_detail.xml" />
+    <include file="src/main/dbschema/R2.2/change_Date_to_Datetime.xml" />
+    <include file="src/main/dbschema/R2.2/fix_constraint_service.xml" />
+    <include file="src/main/dbschema/R2.2/change_long_lat.xml" />
+
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_account_role">
+        <insert tableName="account_role">
+            <column name="account_id" type="int" value="1"/>
+            <column name="role_id" type="int" value="1"/>
+        </insert>
+
+        <insert tableName="account_role">
+            <column name="account_id" type="int" value="2"/>
+            <column name="role_id" type="varchar(10)" value="2"/>
+        </insert>
+
+        <insert tableName="account_role">
+            <column name="account_id" type="int" value="3"/>
+            <column name="role_id" type="varchar(10)" value="2"/>
+        </insert>
+
+        <insert tableName="account_role">
+            <column name="account_id" type="int" value="4"/>
+            <column name="role_id" type="varchar(10)" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

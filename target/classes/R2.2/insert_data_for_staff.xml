@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_staff">
+        <insert tableName="staff">
+            <column name="name" value="Thanh"/>
+            <column name="phone_number" value="0123456789"/>
+            <column name="provider_id" value="4"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Tam"/>
+            <column name="phone_number" value="0123446789"/>
+            <column name="provider_id" value="4"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Duy"/>
+            <column name="phone_number" value="0124456789"/>
+            <column name="provider_id" value="4"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="An"/>
+            <column name="phone_number" value="0723456789"/>
+            <column name="provider_id" value="4"/>
+        </insert>
+
+        <insert tableName="staff">
+            <column name="name" value="Bao"/>
+            <column name="phone_number" value="0823456789"/>
+            <column name="provider_id" value="3"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Vam"/>
+            <column name="phone_number" value="0923456789"/>
+            <column name="provider_id" value="3"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Thuy"/>
+            <column name="phone_number" value="01223456789"/>
+            <column name="provider_id" value="3"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Anh"/>
+            <column name="phone_number" value="01234567819"/>
+            <column name="provider_id" value="3"/>
+        </insert>
+
+        <insert tableName="staff">
+            <column name="name" value="Thanh"/>
+            <column name="phone_number" value="0123756789"/>
+            <column name="provider_id" value="2"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Tam"/>
+            <column name="phone_number" value="0123556789"/>
+            <column name="provider_id" value="2"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Duy"/>
+            <column name="phone_number" value="0123476789"/>
+            <column name="provider_id" value="2"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="An"/>
+            <column name="phone_number" value="0126896789"/>
+            <column name="provider_id" value="2"/>
+        </insert>
+
+        <insert tableName="staff">
+            <column name="name" value="Hanh"/>
+            <column name="phone_number" value="0123123789"/>
+            <column name="provider_id" value="1"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Dung"/>
+            <column name="phone_number" value="0123478789"/>
+            <column name="provider_id" value="1"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Ha"/>
+            <column name="phone_number" value="01234423789"/>
+            <column name="provider_id" value="1"/>
+        </insert>
+        <insert tableName="staff">
+            <column name="name" value="Khang"/>
+            <column name="phone_number" value="01231256789"/>
+            <column name="provider_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

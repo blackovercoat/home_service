@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_data_providers">
+        <insert tableName="provider">
+            <column name="name" value="An"/>
+            <column name="email" type="varchar(255)" value="anguyen@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="01662554556"/>
+            <column name="address" value="91 Chu Manh Trinh"/>
+        </insert>
+
+        <insert tableName="provider">
+            <column name="name" value="Long"/>
+            <column name="email" type="varchar(255)" value="longvo@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0906258455"/>
+            <column name="address" value="65 Hoang Hoa Tham"/>
+        </insert>
+
+        <insert tableName="provider">
+            <column name="name" value="Duong"/>
+            <column name="email" type="varchar(255)" value="dnguyen@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0125486525"/>
+            <column name="address" value="322 Le Duan"/>
+        </insert>
+
+        <insert tableName="provider">
+            <column name="name" value="Oanh"/>
+            <column name="email" type="varchar(255)" value="tranoanh@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0123456789"/>
+            <column name="address" value="321 Hoang Dieu"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

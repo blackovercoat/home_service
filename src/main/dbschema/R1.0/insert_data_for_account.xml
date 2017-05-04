@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_account">
+        <insert tableName="account">
+            <column name="first_name" type="varchar(50)" value="Binh"/>
+            <column name="last_name" type="varchar(50)" value="Nguyen"/>
+            <column name="email" type="varchar(255)" value="bnguyen@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="01662554556"/>
+        </insert>
+
+        <insert tableName="account">
+            <column name="first_name" type="varchar(50)" value="Long"/>
+            <column name="last_name" type="varchar(50)" value="Vo"/>
+            <column name="email" type="varchar(255)" value="longvo@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0906258455"/>
+        </insert>
+
+        <insert tableName="account">
+            <column name="first_name" type="varchar(50)" value="Duong"/>
+            <column name="last_name" type="varchar(50)" value="Nguyen"/>
+            <column name="email" type="varchar(255)" value="dnguyen@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0125486525"/>
+        </insert>
+
+        <insert tableName="account">
+            <column name="first_name" type="varchar(50)" value="Oanh"/>
+            <column name="last_name" type="varchar(50)" value="Tran"/>
+            <column name="email" type="varchar(255)" value="tranoanh@gmail.com"/>
+            <column name="password" type="varchar(255)" value="123456"/>
+            <column name="phone_number" type="varchar(255)" value="0123456789"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

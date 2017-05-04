@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_booking_detail">
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="1"/>
+            <column name="provider_service_id" value="1"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="12/12/2016"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="2"/>
+            <column name="provider_service_id" value="1"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="11/12/2016"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="3"/>
+            <column name="provider_service_id" value="2"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="01/13/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="4"/>
+            <column name="provider_service_id" value="4"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="01/14/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="5"/>
+            <column name="provider_service_id" value="3"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="04/14/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="6"/>
+            <column name="provider_service_id" value="7"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="01/15/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="7"/>
+            <column name="provider_service_id" value="9"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="04/18/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="8"/>
+            <column name="provider_service_id" value="11"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="03/25/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="9"/>
+            <column name="provider_service_id" value="12"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="02/27/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="10"/>
+            <column name="provider_service_id" value="2"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="12/01/2016"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="11"/>
+            <column name="provider_service_id" value="5"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="11/20/2016"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="12"/>
+            <column name="provider_service_id" value="8"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="-1"/>
+            <column name="working_date" value="05/20/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="13"/>
+            <column name="provider_service_id" value="4"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="02/01/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="14"/>
+            <column name="provider_service_id" value="3"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="01/20/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="15"/>
+            <column name="provider_service_id" value="10"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="02/01/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="16"/>
+            <column name="provider_service_id" value="10"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="1"/>
+            <column name="working_date" value="03/20/2017"/>
+        </insert>
+
+        <insert tableName="booking_detail">
+            <column name="booking_id" value="17"/>
+            <column name="provider_service_id" value="10"/>
+            <column name="description" value="abcxyz"/>
+            <column name="status" value="-1"/>
+            <column name="working_date" value="05/01/2017"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

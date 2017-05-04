@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet author="bnguyen" id="change_Date_to_Datetime">
+        <modifyDataType
+                columnName="working_date"
+                newDataType="Datetime"
+                tableName="booking"/>
+        <modifyDataType
+                columnName="booking_date"
+                newDataType="Datetime"
+                tableName="booking"/>
+        <modifyDataType
+                columnName="rating_date"
+                newDataType="Datetime"
+                tableName="rating"/>
+        <dropColumn columnName="from"
+                    tableName="provider_service"/>
+        <dropColumn columnName="to"
+                    tableName="provider_service"/>
+        <addColumn tableName="provider_service">
+            <column name="from" type="Datetime"/>
+            <column name="to" type="Datetime"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

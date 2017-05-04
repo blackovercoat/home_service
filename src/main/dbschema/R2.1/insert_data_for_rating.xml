@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="bnguyen" id="insert_rating">
+        <insert tableName="rating">
+            <column name="provider_service_id" value="1"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="1"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="1"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="best"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="2"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="bad"/>
+            <column name="score" value="2.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="2"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="2"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="best"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="3"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="normal okay for me"/>
+            <column name="score" value="3.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="3"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="good"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="3"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="best"/>
+            <column name="score" value="4.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="4"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="4"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="5"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="5"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="5"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="best"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="6"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="7"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="okay"/>
+            <column name="score" value="3.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="7"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="soso"/>
+            <column name="score" value="2.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="7"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="not so good"/>
+            <column name="score" value="2.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="8"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="okay"/>
+            <column name="score" value="3.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="8"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="so so"/>
+            <column name="score" value="3.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="8"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="not so good"/>
+            <column name="score" value="2.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="9"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="okay"/>
+            <column name="score" value="3.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="9"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="soso"/>
+            <column name="score" value="2.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="9"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="not so good"/>
+            <column name="score" value="2.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="10"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="good"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="10"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="fantastic"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="10"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="11"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="good"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="11"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="good"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="11"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="good"/>
+            <column name="score" value="5.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="12"/>
+            <column name="customer_id" value="1"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.0"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="12"/>
+            <column name="customer_id" value="2"/>
+            <column name="content" value="good enough"/>
+            <column name="score" value="4.5"/>
+        </insert>
+
+        <insert tableName="rating">
+            <column name="provider_service_id" value="12"/>
+            <column name="customer_id" value="3"/>
+            <column name="content" value="good"/>
+            <column name="score" value="4.0"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
