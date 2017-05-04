@@ -29,12 +29,10 @@ public class ProviderController {
     @Autowired
     private final ProviderService providerService;
     private final CommonService commonService;
-    private final ServletContext context;
 
-    public ProviderController(ProviderService providerService, CommonService commonService, ServletContext context) {
+    public ProviderController(ProviderService providerService, CommonService commonService) {
         this.providerService = providerService;
         this.commonService = commonService;
-        this.context = context;
     }
 
     @RequestMapping("/add")
@@ -78,7 +76,6 @@ public class ProviderController {
         ProviderEntity providerEntity = providerService.getProviderById(providerId);
         model.addAttribute("providerForm", new ProviderForm());
         model.addAttribute("provider",providerEntity);
-        model.addAttribute("context",context.getContextPath());
         return "provider/edit_provider";
     }
 

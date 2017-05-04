@@ -26,12 +26,10 @@ public class CatalogController {
     @Autowired
     final private CatalogService catalogService;
     final private CommonService commonService;
-    private final ServletContext context;
 
-    public CatalogController(CatalogService catalogService, CommonService commonService, ServletContext context) {
+    public CatalogController(CatalogService catalogService, CommonService commonService) {
         this.catalogService = catalogService;
         this.commonService = commonService;
-        this.context = context;
     }
 
     @RequestMapping("/list")
@@ -61,7 +59,6 @@ public class CatalogController {
         CatalogEntity catalogEntity = catalogService.getCatalogById(catalogId);
         model.addAttribute("catalogForm", new CatalogForm());
         model.addAttribute("catalog",catalogEntity);
-        model.addAttribute("context",context.getContextPath());
         return "catalog/edit_catalog";
     }
 
