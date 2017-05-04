@@ -59,7 +59,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="imageLoad">Old Image:</label>
                                     <div class="col-sm-9">
-                                        <img id="imageLoad" name="imageLoad" class="img-responsive" th:src="${catalog.getImage()}">
+                                        <img id="imageLoad" name="imageLoad" class="img-responsive" th:src="${context}+${catalog.getImage()}">
                                     </div>
                                 </div>
                                 <div class="form-group">
