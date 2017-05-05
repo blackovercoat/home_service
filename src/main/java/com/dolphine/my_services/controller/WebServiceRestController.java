@@ -132,6 +132,12 @@ public class WebServiceRestController {
         return new ResponseEntity<ServiceRating>(serviceRating, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public List<ServiceStatistic> test(@RequestParam(name = "providerId") int providerId
+            ,@RequestParam(name = "month") int month) {
+        return bookingService.getServiceStatisticByProviderId(providerId,month);
+    }
+
     @RequestMapping(value = "/rating/add", method = RequestMethod.GET)
     public ResponseEntity<Rating> newRating(@RequestParam(name = "customerId") int customerId
             ,@RequestParam(name = "providerServiceId") int providerServiceId

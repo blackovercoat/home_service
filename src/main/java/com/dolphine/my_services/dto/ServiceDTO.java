@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
  */
 @ToString
 @Data
-
 public class ServiceDTO {
 
     private int id;

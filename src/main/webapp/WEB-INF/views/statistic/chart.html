@@ -7,7 +7,7 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Catalog</title>
+    <title>Chart</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/webjars/bootswatch-paper/3.3.5+4/css/bootstrap.css"
@@ -17,66 +17,6 @@
           th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.css}">
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        // Load Charts and the corechart package.
-        google.charts.load('current', {'packages':['corechart']});
-
-        // Draw the pie chart for Sarah's pizza when Charts is loaded.
-        google.charts.setOnLoadCallback(drawSarahChart);
-
-        // Draw the pie chart for the Anthony's pizza when Charts is loaded.
-        google.charts.setOnLoadCallback(drawAnthonyChart);
-
-        // Callback that draws the pie chart for Sarah's pizza.
-        function drawSarahChart() {
-
-            // Create the data table for Sarah's pizza.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-                ['Mushrooms', 1],
-                ['Onions', 1],
-                ['Olives', 2],
-                ['Zucchini', 2],
-                ['Pepperoni', 1]
-            ]);
-
-            // Set options for Sarah's pie chart.
-            var options = {title:'How Much Pizza Sarah Ate Last Night',
-                width:400,
-                height:300};
-
-            // Instantiate and draw the chart for Sarah's pizza.
-            var chart = new google.visualization.PieChart(document.getElementById('Sarah_chart_div'));
-            chart.draw(data, options);
-        }
-
-        // Callback that draws the pie chart for Anthony's pizza.
-        function drawAnthonyChart() {
-
-            // Create the data table for Anthony's pizza.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-                ['Mushrooms', 2],
-                ['Onions', 2],
-                ['Olives', 2],
-                ['Zucchini', 0],
-                ['Pepperoni', 3]
-            ]);
-
-            // Set options for Anthony's pie chart.
-            var options = {title:'How Much Pizza Anthony Ate Last Night',
-                width:400,
-                height:300};
-
-            // Instantiate and draw the chart for Anthony's pizza.
-            var chart = new google.visualization.PieChart(document.getElementById('Anthony_chart_div'));
-            chart.draw(data, options);
-        }
-    </script>
 </head>
 <body>
 
@@ -88,9 +28,9 @@
 
             <div class="form-inline" >
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="catalogId1">Provider:</label>
+                    <label class="col-sm-4 control-label" for="provider">Provider:</label>
                     <div class="col-sm-4">
-                        <select id="catalogId1">
+                        <select id="provider" onchange="getStatistic(this.value,document.getElementById('month').value)">
                             <option th:each="provider : ${providerList}"
                                     th:value="${provider.getId()}"
                                     th:text="${provider.getName()}">
@@ -99,9 +39,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="catalogId">Month:</label>
+                    <label class="col-sm-4 control-label" for="month">Month:</label>
                     <div class="col-sm-4">
-                        <select id="catalogId">
+                        <select id="month" onchange="getStatistic(document.getElementById('provider').value,this.value)">
+                            <option value="0">All</option>
                             <option value="1">January</option>
                             <option value="2">February</option>
                             <option value="3">March</option>
@@ -118,24 +59,31 @@
                     </div>
                 </div>
             </div>
-            <!-- form -->
             <div class="col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Edit Catalog</h4>
+                        <h4 class="panel-title">Booking Times</h4>
                     </div>
                     <div class="panel-body">
-                        <div id="Sarah_chart_div" style="border: 1px solid #ccc"></div>
+                        <div class="form-horizontal">
+                            <div id="service_times_chart"></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="total">Total:</label>
+                                <div class="col-sm-9">
+                                    <input id="total" name="total" type="text" class="form-control input-md" readonly>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Edit Catalog</h4>
+                        <h4 class="panel-title">Service Statistic</h4>
                     </div>
                     <div class="panel-body">
-                        <div id="Anthony_chart_div" style="border: 1px solid #ccc"></div>
+                        <div id="service_statistic_chart"></div>
                     </div>
                 </div>
             </div>
@@ -150,5 +98,7 @@
         th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js}"></script>
 <script type="text/javascript" src="/webjars/bootbox.js/4.4.0/bootbox.js"
         th:src="@{/webjars/bootbox.js/4.4.0/bootbox.js}"></script>;
+<script src="../../../resources/js/chart.js"
+        th:src="@{/resources/js/chart.js}"></script>
 </body>
 </html>

@@ -1,9 +1,6 @@
 package com.dolphine.my_services.service.booking;
 
-import com.dolphine.my_services.dto.Booking;
-import com.dolphine.my_services.dto.BookingHistory;
-import com.dolphine.my_services.dto.Provider;
-import com.dolphine.my_services.dto.ServiceWebService;
+import com.dolphine.my_services.dto.*;
 import com.dolphine.my_services.model.BookingEntity;
 import com.dolphine.my_services.model.ProviderServiceEntity;
 import com.dolphine.my_services.repository.BookingRepository;
@@ -12,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -119,5 +118,58 @@ public class BookingServiceImpl implements BookingService{
                     ,bookingEntity.getDescription()
                     ,bookingEntity.getStatus()));
         return bookings;
+    }
+
+    @Override
+    public List<ServiceStatistic> getServiceStatisticByProviderId(int providerId,int month) {
+        List<ProviderServiceEntity> providerServiceEntities = providerServiceRepository.findAll();
+        List<BookingEntity> bookingEntities = bookingRepository.findAll();
+        List<ProviderServiceEntity> providerServiceList = providerServiceRepository.findByProvider_Id(providerId);
+        List<ServiceStatistic> serviceStatistics = new ArrayList<>();
+        for(ProviderServiceEntity providerService : providerServiceList) {
+            int count = 0;
+            ServiceStatistic serviceStatistic = new ServiceStatistic();
+            for (ProviderServiceEntity providerServiceEntity : providerServiceEntities)
+                for (BookingEntity bookingEntity : bookingEntities) {
+                    Date bookingDate = bookingEntity.getBookingDate();
+                    Calendar cal = Calendar.getInstance();
+                    int currentYear = cal.get(Calendar.YEAR);
+                    cal.setTime(bookingDate);
+                    int bookingMonth = cal.get(Calendar.MONTH)+1;
+                    int bookingYear = cal.get(Calendar.YEAR);
+                    if(month==0){
+                        if (providerServiceEntity.getId() == bookingEntity.getProviderServices().getId()
+                                && providerServiceEntity.getProvider().getId() == providerId
+                                && bookingYear == currentYear
+                                && providerService.getService().getId() == providerServiceEntity.getService().getId()){
+                            if(count<=0){
+                                serviceStatistic.setMaxPrice(providerServiceEntity.getMaxPrice());
+                                serviceStatistic.setMinPrice(providerServiceEntity.getMinPrice());
+                                serviceStatistic.setProviderId(providerServiceEntity.getProvider().getId());
+                                serviceStatistic.setServiceName(providerServiceEntity.getService().getName());
+                            }
+                            count++;
+                        }
+                    }else
+                            if (providerServiceEntity.getId() == bookingEntity.getProviderServices().getId()
+                                && providerServiceEntity.getProvider().getId() == providerId
+                                && bookingMonth == month
+                                && bookingYear == currentYear
+                                && providerService.getService().getId() == providerServiceEntity.getService().getId()){
+                            if(count<=0){
+                                serviceStatistic.setMinPrice(providerServiceEntity.getMinPrice());
+                                serviceStatistic.setMaxPrice(providerServiceEntity.getMaxPrice());
+                                serviceStatistic.setProviderId(providerServiceEntity.getProvider().getId());
+                                serviceStatistic.setServiceName(providerServiceEntity.getService().getName());
+                            }
+                            count++;
+                        }
+                }
+            if(count>0){
+                serviceStatistic.setBookingTimes(count);
+                serviceStatistics.add(serviceStatistic);
+            }
+        }
+        return serviceStatistics;
     }
 }

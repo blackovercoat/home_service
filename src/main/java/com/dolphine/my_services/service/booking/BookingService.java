@@ -2,6 +2,7 @@ package com.dolphine.my_services.service.booking;
 
 import com.dolphine.my_services.dto.Booking;
 import com.dolphine.my_services.dto.BookingHistory;
+import com.dolphine.my_services.dto.ServiceStatistic;
 import com.dolphine.my_services.model.BookingEntity;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface BookingService {
     int setBookingStatusById(int bookingId,int status);
     List<Booking> getAllBookings();
     List<Booking> getBookingByProviderId(int providerId);
+    List<ServiceStatistic> getServiceStatisticByProviderId(int providerId,int month);
 }
