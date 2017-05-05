@@ -12,16 +12,16 @@ import java.util.Date;
 @ToString
 public class Rating {
     private int id;
-    private int customerId;
+    private Customer customer;
     private String content;
     private float score;
     private String title;
     private Date ratingDate;
     private int providerServiceId;
 
-    public Rating(int id, int customerId, String content, float score,String title, Date ratingDate, int providerServiceId) {
+    public Rating(int id, Customer customer, String content, float score,String title, Date ratingDate, int providerServiceId) {
         this.id = id;
-        this.customerId = customerId;
+        this.customer = customer;
         this.content = content;
         this.score = score;
         this.title = title;

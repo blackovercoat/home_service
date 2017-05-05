@@ -1,5 +1,6 @@
 package com.dolphine.my_services.service.rating;
 
+import com.dolphine.my_services.dto.Customer;
 import com.dolphine.my_services.dto.Rating;
 import com.dolphine.my_services.dto.ServiceRating;
 import com.dolphine.my_services.model.ProviderServiceEntity;
@@ -30,14 +31,23 @@ public class RatingServiceImpl implements RatingService {
     public List<Rating> getRatingByProviderService(int providerServiceId) {
         List<RatingEntity> ratingEntities = ratingRepository.findByProviderServices_Id(providerServiceId);
         List<Rating> ratings = new ArrayList<>();
-        for (RatingEntity ratingEntity : ratingEntities)
+        for (RatingEntity ratingEntity : ratingEntities){
+            Customer customer = new Customer(ratingEntity.getCustomer().getId()
+                    ,ratingEntity.getCustomer().getName()
+                    ,ratingEntity.getCustomer().getEmail()
+                    ,ratingEntity.getCustomer().getPassword()
+                    ,ratingEntity.getCustomer().getPhoneNumber()
+                    ,ratingEntity.getCustomer().getAddress()
+                    ,ratingEntity.getCustomer().getLongitude()
+                    ,ratingEntity.getCustomer().getLatitude());
             ratings.add(new Rating(ratingEntity.getId()
-                    ,ratingEntity.getCustomer().getId()
+                    ,customer
                     ,ratingEntity.getContent()
                     ,ratingEntity.getScore()
                     ,ratingEntity.getTitle()
                     ,ratingEntity.getRatingDate()
                     ,ratingEntity.getProviderServices().getId()));
+        }
         return ratings;
     }
 
@@ -52,10 +62,18 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public Rating saveRating(RatingEntity ratingEntity) {
+        Customer customer = new Customer(ratingEntity.getCustomer().getId()
+                ,ratingEntity.getCustomer().getName()
+                ,ratingEntity.getCustomer().getEmail()
+                ,ratingEntity.getCustomer().getPassword()
+                ,ratingEntity.getCustomer().getPhoneNumber()
+                ,ratingEntity.getCustomer().getAddress()
+                ,ratingEntity.getCustomer().getLongitude()
+                ,ratingEntity.getCustomer().getLatitude());
         Rating rating = new Rating();
         ratingRepository.save(ratingEntity);
         rating.setId(ratingEntity.getId());
-        rating.setCustomerId(ratingEntity.getCustomer().getId());
+        rating.setCustomer(customer);
         rating.setProviderServiceId(ratingEntity.getProviderServices().getId());
         rating.setContent(ratingEntity.getContent());
         rating.setScore(ratingEntity.getScore());

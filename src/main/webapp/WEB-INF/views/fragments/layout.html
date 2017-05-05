@@ -34,12 +34,24 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-                            <a th:href="@{/provider/list}">Providers</a>
-                            <a th:href="@{/service/list}">Services</a>
-                            <a th:href="@{/catalog/list}">Catalogs</a>
-                            <a th:href="@{/customer/list}">Customers</a>
+                            <a th:href="@{/provider/list}">Provider</a>
+                            <a th:href="@{/service/list}">Service</a>
+                            <a th:href="@{/catalog/list}">Catalog</a>
+                            <a th:href="@{/customer/list}">Customer</a>
                         </li>
                     </ul>
+                </li>
+                <li class="dropdown" th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'')')}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span>Statistic</span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                            <a th:href="@{/statistic/chart}">Chart</a>
+                            <a th:href="@{/provider/list}">Report</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${#authorization.expression('isAuthenticated()')}">

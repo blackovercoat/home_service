@@ -67,14 +67,23 @@ public class CatalogServiceImpl implements CatalogService {
         for(ProviderServiceEntity providerServiceEntity : providerServiceEntities) {
             List<RatingEntity> ratingEntities = providerServiceEntity.getRatings();
             List<Rating> ratings = new ArrayList<Rating>();
-            for(RatingEntity ratingEntity : ratingEntities)
+            for(RatingEntity ratingEntity : ratingEntities){
+                Customer customer = new Customer(ratingEntity.getCustomer().getId()
+                        ,ratingEntity.getCustomer().getName()
+                        ,ratingEntity.getCustomer().getEmail()
+                        ,ratingEntity.getCustomer().getPassword()
+                        ,ratingEntity.getCustomer().getPhoneNumber()
+                        ,ratingEntity.getCustomer().getAddress()
+                        ,ratingEntity.getCustomer().getLongitude()
+                        ,ratingEntity.getCustomer().getLatitude());
                 ratings.add(new Rating(ratingEntity.getId()
-                        ,ratingEntity.getCustomer().getId()
+                        ,customer
                         ,ratingEntity.getContent()
                         ,ratingEntity.getScore()
                         ,ratingEntity.getTitle()
                         ,ratingEntity.getRatingDate()
                         ,ratingEntity.getProviderServices().getId()));
+            }
             serviceAndRatings.add(new ServiceAndRating(providerServiceEntity.getService().getId()
                     , providerServiceEntity.getService().getName()
                     , providerServiceEntity.getService().getDescription()
