@@ -53,5 +53,6 @@
     <include file="src/main/dbschema/R2.2/change_Date_to_Datetime.xml" />
     <include file="src/main/dbschema/R2.2/fix_constraint_service.xml" />
     <include file="src/main/dbschema/R2.2/change_long_lat.xml" />
+    <include file="src/main/dbschema/R2.2/update_rating_date.xml" />
 
 </databaseChangeLog>
