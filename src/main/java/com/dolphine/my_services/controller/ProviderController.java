@@ -42,17 +42,24 @@ public class ProviderController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addNewProvider(@RequestParam("fileUpload") MultipartFile fileUpload,@Valid @ModelAttribute("providerForm") ProviderForm providerForm, BindingResult bindingResult
-                              , RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
+                              , RedirectAttributes redirectAttributes,Model model) throws UnsupportedEncodingException {
         if (bindingResult.hasErrors())
             return "provider/add_provider";
-        ProviderEntity providerEntity = providerService.addProvider(providerForm);
-        try {
-            providerForm.setImage(commonService.uploadImage(fileUpload,"provider"+providerEntity.getId()));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(providerService.getProviderByEmail(providerForm.getEmail())!=null)
+            redirectAttributes.addFlashAttribute("emailErrorMessage","This email already in use!");
+        else if(providerService.getProviderByPhoneNumber(providerForm.getPhoneNumber())!=null)
+            redirectAttributes.addFlashAttribute("phoneErrorMessage","This phone number already in use!");
+        else{
+            ProviderEntity providerEntity = providerService.addProvider(providerForm);
+            try {
+                providerForm.setImage(commonService.uploadImage(fileUpload,"provider"+providerEntity.getId()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            providerService.setProviderById(providerForm,providerEntity.getId());
+            redirectAttributes.addFlashAttribute("addProviderSuccessMessage", "Add new provider successful!");
         }
-        providerService.setProviderById(providerForm,providerEntity.getId());
-        redirectAttributes.addFlashAttribute("addProviderSuccessMessage", "Add new provider successful!");
+
         return "redirect:/provider/list";
     }
 
@@ -72,7 +79,6 @@ public class ProviderController {
 
     @RequestMapping(value = "/edit/{providerId}",method = RequestMethod.GET)
     public String editProvider(@PathVariable("providerId") int providerId,Model model){
-
         ProviderEntity providerEntity = providerService.getProviderById(providerId);
         model.addAttribute("providerForm", new ProviderForm());
         model.addAttribute("provider",providerEntity);
@@ -81,18 +87,26 @@ public class ProviderController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String updateProvider(@RequestParam("fileUpload") MultipartFile fileUpload,@Valid @ModelAttribute("providerForm") ProviderForm providerForm
-            , BindingResult bindingResult) {
+            , BindingResult bindingResult,RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()){
             return "redirect:/provider/edit/"+providerForm.getId();
         }
-        if(fileUpload.getName()!="")
-            try {
-                commonService.removeImage(providerForm.getImage());
-                providerForm.setImage(commonService.uploadImage(fileUpload,"provider"+providerForm.getId()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        providerService.setProviderById(providerForm,providerForm.getId());
+        if(providerService.getProviderByEmail(providerForm.getEmail())!=null&&
+                providerService.getProviderById(providerForm.getId()).getEmail()!=providerForm.getEmail())
+            redirectAttributes.addFlashAttribute("emailErrorMessage","This email already in use!");
+        else if(providerService.getProviderByPhoneNumber(providerForm.getPhoneNumber())!=null&&
+                providerService.getProviderById(providerForm.getId()).getPhoneNumber()!=providerForm.getPhoneNumber())
+            redirectAttributes.addFlashAttribute("phoneErrorMessage","This phone number already in use!");
+        else{
+            if(fileUpload.getName()!="")
+                try {
+                    commonService.removeImage(providerForm.getImage());
+                    providerForm.setImage(commonService.uploadImage(fileUpload,"provider"+providerForm.getId()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            providerService.setProviderById(providerForm,providerForm.getId());
+        }
         return "redirect:/provider/list";
     }
 }

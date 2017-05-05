@@ -19,8 +19,8 @@ function getServiceTime(providerId,month) {
             month: month
         },
         success: function (result, status, xhr) {
-            serviceTime = result;
-            drawServiceTimes(serviceTime);
+            reportStatistic = result;
+            drawServiceTimes(reportStatistic);
         },
         error: function (xhr, status, error) {
         }
@@ -36,12 +36,12 @@ function drawServiceTimes(serviceTime) {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Service');
     data.addColumn('number', 'Times');
-    $.each(serviceTime, function (key, value) {
+    $.each(reportStatistic, function (key, value) {
         data.addRows([
             [value.serviceName, value.bookingTimes]
         ]);
-        max = max + value.maxPrice;
-        min = min + value.minPrice;
+        max = max + value.maxPrice*value.bookingTimes;
+        min = min + value.minPrice*value.bookingTimes;
     });
     document.getElementById("total").value = min+' $ - '+max +' $';
     var options = {title:providerName+'\''+'s Services'+' in '+monthName,

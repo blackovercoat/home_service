@@ -48,7 +48,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                             <a th:href="@{/statistic/chart}">Chart</a>
-                            <a th:href="@{/provider/list}">Report</a>
+                            <a th:href="@{/statistic/report}">Report</a>
                         </li>
                     </ul>
                 </li>
