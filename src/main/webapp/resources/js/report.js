@@ -67,7 +67,7 @@ function loadTableReport(reportStatistic) {
     document.getElementById("total").textContent = min+' $ - '+max +' $';
 }
 
-$('#btnGenerate').click(function () {
+$('#btnPng').click(function () {
     var monthName = document.getElementById('month').options[document.getElementById('month').selectedIndex].text;
     var providerName = document.getElementById('provider').options[document.getElementById('provider').selectedIndex].text;
     var year = new Date().getFullYear();
@@ -82,8 +82,27 @@ $('#btnGenerate').click(function () {
             })
                 .on("click", function() {$(this).remove()})
                 .appendTo("body")[0].click()
-            // Clean up
+            //
             document.body.removeChild(canvas);
         }
     });
 });
+var tableToExcel = (function() {
+    var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        , base64 = function(s) { return window.btoa(unescape((encodeURIComponent(s)))) }
+        , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p];      }) }
+    return function(table, name) {
+        var monthName = document.getElementById('month').options[document.getElementById('month').selectedIndex].text;
+        var providerName = document.getElementById('provider').options[document.getElementById('provider').selectedIndex].text;
+        var year = new Date().getFullYear();
+        if(monthName==='All')
+            monthName='Total';
+        if (!table.nodeType) table = document.getElementById(table)
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+        var link = document.createElement("a");
+        link.download = 'Report_for_'+providerName+'\'s_Services_in_'+ monthName+'_'+year+'.xls';
+        link.href = uri + base64(format(template, ctx));
+        link.click();
+    }
+})()

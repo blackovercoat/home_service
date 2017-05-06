@@ -16,6 +16,7 @@
     <link href="/resources/css/style.css" th:href="@{/resources/css/style.css}" rel="stylesheet">
     <link rel="stylesheet" href="/webjars/jquery-ui/1.12.1/jquery-ui.css"
           th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.css}">
+
 </head>
 <body>
 
@@ -91,7 +92,10 @@
                 </div>
             </div>
             <div id="editor"></div>
-            <button id="btnGenerate" type="submit" class="btn btn-success center-block">Save</button>
+            <div style="text-align:center;">
+                <button id="btnPng" type="submit" class="btn btn-success">Generate PNG</button>
+                <button id="btnExcel" type="submit" onclick="tableToExcel('content','Sheet1')" class="btn btn-success">Generate Excel</button>
+            </div>
         </div>
     </section>
 </div>
@@ -108,5 +112,6 @@
         th:src="@{/resources/js/html2canvas.js}"></script>
 <script src="../../../resources/js/canvas2image.js"
         th:src="@{/resources/js/canvas2image.js}"></script>
+
 </body>
 </html>
