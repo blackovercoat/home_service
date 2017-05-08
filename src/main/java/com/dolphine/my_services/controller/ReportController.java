@@ -1,6 +1,8 @@
 package com.dolphine.my_services.controller;
 
+import com.dolphine.my_services.dto.Provider;
 import com.dolphine.my_services.dto.ServiceStatistic;
+import com.dolphine.my_services.model.ProviderEntity;
 import com.dolphine.my_services.service.booking.BookingService;
 import com.dolphine.my_services.service.provider.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,20 +31,23 @@ public class ReportController {
         return "statistic/reportRender";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "statistic/provider_list", method = RequestMethod.GET)
+    public List<Provider> loadProvider() {
+        return providerService.getAllProviderDTO();
+    }
+
     @RequestMapping("statistic/report")
     public String chart(Model model){
-        float totalMin=0;
-        float totalMax=0;
+        float price=0;
         String total;
         model.addAttribute("providerList",providerService.getAllProvider());
-        model.addAttribute("defaultStatistic",bookingService.getServiceStatisticByProviderId(1,0));
-        List<ServiceStatistic> serviceStatistics = bookingService.getServiceStatisticByProviderId(1,0);
-        for(ServiceStatistic statistic : serviceStatistics){
-            totalMin = totalMin + statistic.getMinPrice()*statistic.getBookingTimes();
-            totalMax = totalMax + statistic.getMaxPrice()*statistic.getBookingTimes();
-        }
-        total = totalMin +" $ - " +totalMax +" $";
+        List<ServiceStatistic> serviceStatistics = bookingService.getServiceStatisticByProviderId(0,0);
+        for(ServiceStatistic statistic : serviceStatistics)
+            price = price + statistic.getPrice()*statistic.getBookingTimes();
+        total = price +" $";
         model.addAttribute("defaultTotal",total);
+        model.addAttribute("defaultStatistic",serviceStatistics);
         return "statistic/report";
     }
 

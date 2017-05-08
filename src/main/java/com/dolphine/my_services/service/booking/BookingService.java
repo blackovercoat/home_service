@@ -19,4 +19,5 @@ public interface BookingService {
     List<Booking> getAllBookings();
     List<Booking> getBookingByProviderId(int providerId);
     List<ServiceStatistic> getServiceStatisticByProviderId(int providerId,int month);
+    List<ServiceStatistic> getServiceStatisticAllProvider(int month);
 }

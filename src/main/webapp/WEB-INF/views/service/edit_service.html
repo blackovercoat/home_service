@@ -75,6 +75,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="price">Price:</label>
+                                    <div class="col-sm-9">
+                                        <input id="price" name="price" type="number" class="form-control input-md" required="">
+                                        <label class="text-danger" ></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label" for="description">Description:</label>
                                     <div class="col-sm-9">
                                         <textarea id="description" name="description" class="form-control" rows="3" th:text="${service.getDescription()}"></textarea>

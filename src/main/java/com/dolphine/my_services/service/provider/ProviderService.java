@@ -1,5 +1,6 @@
 package com.dolphine.my_services.service.provider;
 
+import com.dolphine.my_services.dto.Provider;
 import com.dolphine.my_services.dto.ProviderForm;
 import com.dolphine.my_services.model.ProviderEntity;
 
@@ -10,7 +11,9 @@ import java.util.List;
  */
 public interface ProviderService {
     List<ProviderEntity> getAllProvider();
+    List<Provider> getAllProviderDTO();
     ProviderEntity addProvider(ProviderForm providerForm);
+    Provider addProviderWebService(ProviderEntity providerEntity);
     ProviderEntity getProviderByPhoneNumber(String phoneNumber);
     ProviderEntity getProviderById(int Id);
     ProviderEntity getProviderByEmail(String email);

@@ -84,6 +84,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="price">Price:</label>
+                                    <div class="col-sm-9">
+                                        <input id="price" name="price" type="number" class="form-control input-md" required="">
+                                        <label class="text-danger" ></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label" for="description">Description:</label>
                                     <div class="col-sm-9">
                                         <textarea id="description" name="description" class="form-control" rows="3"></textarea>
@@ -118,12 +125,14 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Price</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:id="${service.getId()}" th:each="service : ${defaultservice}">
                                         <td data-title="Name" th:text="${service.getName()}">Clean bath room</td>
                                         <td data-title="Description" th:text="${service.getDescription()}">cleaning your bath room</td>
+                                        <td data-title="Price" th:text="${service.getPrice()}">cleaning your bath room</td>
                                         <td>
                                             <a th:href="@{/service/edit/} + ${service.getId()}" class="btn btn-sm btn-primary">Edit</a>
                                             <a href="#" class="btn btn-sm btn-danger"  th:id="${'delete_' + service.getId()}">Delete</a>

@@ -29,8 +29,8 @@ function getServiceTime(providerId,month) {
 function drawServiceTimes(serviceTime) {
     var monthName = document.getElementById('month').options[document.getElementById('month').selectedIndex].text;
     var providerName = document.getElementById('provider').options[document.getElementById('provider').selectedIndex].text;
-    var max = 0;
-    var min = 0;
+    var providerId = document.getElementById('provider').options[document.getElementById('provider').selectedIndex].value;
+    var price = 0;
     if(monthName==='All')
         monthName='Total';
     var data = new google.visualization.DataTable();
@@ -40,13 +40,17 @@ function drawServiceTimes(serviceTime) {
         data.addRows([
             [value.serviceName, value.bookingTimes]
         ]);
-        max = max + value.maxPrice*value.bookingTimes;
-        min = min + value.minPrice*value.bookingTimes;
+        price = price + value.price*value.bookingTimes;
     });
-    document.getElementById("total").value = min+' $ - '+max +' $';
-    var options = {title:providerName+'\''+'s Services'+' in '+monthName,
-        width:500,
-        height:300};
+    document.getElementById("total").value = price+' $';
+    if(providerId==0)
+        var options = {title:providerName+' Services'+' in '+monthName,
+            width:500,
+            height:300};
+    else
+        var options = {title:providerName+'\''+'s Services'+' in '+monthName,
+            width:500,
+            height:300};
     var chart = new google.visualization.ColumnChart(document.getElementById('service_times_chart'));
     chart.draw(data, options);
 }
@@ -69,6 +73,7 @@ function getServiceStatistic(providerId) {
 }
 function drawServiceStatistic(serviceStatistic) {
     var data = new google.visualization.DataTable();
+    var providerId = document.getElementById('provider').options[document.getElementById('provider').selectedIndex].value;
     var providerName = document.getElementById('provider').options[document.getElementById('provider').selectedIndex].text;
     data.addColumn('string', 'Service');
     data.addColumn('number', 'Times');
@@ -77,9 +82,14 @@ function drawServiceStatistic(serviceStatistic) {
             [value.serviceName, value.bookingTimes]
         ]);
     });
-    var options = {title:'Overview services of '+providerName,
-        width:500,
-        height:350};
+    if(providerId==0)
+        var options = {title:'Overview services',
+            width:500,
+            height:350};
+    else
+        var options = {title:'Overview services of '+providerName,
+            width:500,
+            height:350};
     var chart = new google.visualization.PieChart(document.getElementById('service_statistic_chart'));
     chart.draw(data, options);
 }

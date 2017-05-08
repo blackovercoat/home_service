@@ -44,7 +44,8 @@ public class ServicesServiceImpl implements ServicesService {
                     ,serviceEntity.getName()
                     ,serviceEntity.getDescription()
                     ,serviceEntity.getCatalog().getId()
-                    ,serviceEntity.getImage()));
+                    ,serviceEntity.getImage()
+                    ,serviceEntity.getPrice()));
         return services;
     }
 
@@ -58,6 +59,7 @@ public class ServicesServiceImpl implements ServicesService {
     public void setServiceById(ServiceForm serviceForm, int id) {
         serviceRepository.updateById(id,serviceForm.getName()
                 ,serviceForm.getDescription()
+                ,serviceForm.getPrice()
                 ,serviceForm.getImage());
     }
 

@@ -1,5 +1,6 @@
 package com.dolphine.my_services.service.provider;
 
+import com.dolphine.my_services.dto.Provider;
 import com.dolphine.my_services.dto.ProviderForm;
 import com.dolphine.my_services.model.ProviderEntity;
 import com.dolphine.my_services.repository.ProviderRepository;
@@ -29,6 +30,22 @@ public class ProviderServiceImpl implements ProviderService{
     }
 
     @Override
+    public List<Provider> getAllProviderDTO() {
+        List<ProviderEntity> providerEntities = providerRepository.findAll();
+        List<Provider> providers = new ArrayList<>();
+        for(ProviderEntity providerEntity : providerEntities)
+            providers.add(new Provider(providerEntity.getId()
+                    ,providerEntity.getName()
+                    ,providerEntity.getEmail()
+                    ,providerEntity.getPhoneNumber()
+                    ,providerEntity.getAddress()
+                    ,providerEntity.getLongitude()
+                    ,providerEntity.getLatitude()
+                    ,providerEntity.getImage()));
+        return providers;
+    }
+
+    @Override
     public ProviderEntity addProvider(ProviderForm providerForm) {
         ProviderEntity providerEntity = new ProviderEntity();
         providerEntity.setName(providerForm.getName());
@@ -41,6 +58,20 @@ public class ProviderServiceImpl implements ProviderService{
         providerEntity.setPassword(providerForm.getPassword());
 
         return providerRepository.save(providerEntity);
+    }
+
+    @Override
+    public Provider addProviderWebService(ProviderEntity providerEntity) {
+        Provider provider = new Provider();
+        provider.setName(providerEntity.getName());
+        provider.setEmail(providerEntity.getEmail());
+        provider.setAddress(providerEntity.getAddress());
+        provider.setLongitude(providerEntity.getLongitude());
+        provider.setLatitude(providerEntity.getLatitude());
+        provider.setImage(providerEntity.getImage());
+        provider.setPhoneNumber(providerEntity.getPhoneNumber());
+        providerRepository.save(providerEntity);
+        return provider;
     }
 
     @Transactional

@@ -122,14 +122,18 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<ServiceStatistic> getServiceStatisticByProviderId(int providerId,int month) {
-        List<ProviderServiceEntity> providerServiceEntities = providerServiceRepository.findAll();
         List<BookingEntity> bookingEntities = bookingRepository.findAll();
-        List<ProviderServiceEntity> providerServiceList = providerServiceRepository.findByProvider_Id(providerId);
+        List<ProviderServiceEntity> providerServiceList;
+        if(providerId==0)
+            providerServiceList = providerServiceRepository.findAll();
+        else
+            providerServiceList = providerServiceRepository.findByProvider_Id(providerId);
+
         List<ServiceStatistic> serviceStatistics = new ArrayList<>();
         for(ProviderServiceEntity providerService : providerServiceList) {
             int count = 0;
             ServiceStatistic serviceStatistic = new ServiceStatistic();
-            for (ProviderServiceEntity providerServiceEntity : providerServiceEntities)
+            for (ProviderServiceEntity providerServiceEntity : providerServiceList)
                 for (BookingEntity bookingEntity : bookingEntities) {
                     Date bookingDate = bookingEntity.getBookingDate();
                     Calendar cal = Calendar.getInstance();
@@ -139,12 +143,12 @@ public class BookingServiceImpl implements BookingService{
                     int bookingYear = cal.get(Calendar.YEAR);
                     if(month==0){
                         if (providerServiceEntity.getId() == bookingEntity.getProviderServices().getId()
-                                && providerServiceEntity.getProvider().getId() == providerId
                                 && bookingYear == currentYear
+                                && providerServiceEntity.getProvider().getId() == providerService.getProvider().getId()
                                 && providerService.getService().getId() == providerServiceEntity.getService().getId()){
                             if(count<=0){
-                                serviceStatistic.setMaxPrice(providerServiceEntity.getMaxPrice());
-                                serviceStatistic.setMinPrice(providerServiceEntity.getMinPrice());
+                                serviceStatistic.setProviderName(providerServiceEntity.getProvider().getName());
+                                serviceStatistic.setPrice(providerServiceEntity.getService().getPrice());
                                 serviceStatistic.setProviderId(providerServiceEntity.getProvider().getId());
                                 serviceStatistic.setServiceName(providerServiceEntity.getService().getName());
                             }
@@ -152,13 +156,13 @@ public class BookingServiceImpl implements BookingService{
                         }
                     }else
                             if (providerServiceEntity.getId() == bookingEntity.getProviderServices().getId()
-                                && providerServiceEntity.getProvider().getId() == providerId
                                 && bookingMonth == month
                                 && bookingYear == currentYear
+                                && providerServiceEntity.getProvider().getId() == providerService.getProvider().getId()
                                 && providerService.getService().getId() == providerServiceEntity.getService().getId()){
                             if(count<=0){
-                                serviceStatistic.setMinPrice(providerServiceEntity.getMinPrice());
-                                serviceStatistic.setMaxPrice(providerServiceEntity.getMaxPrice());
+                                serviceStatistic.setPrice(providerServiceEntity.getService().getPrice());
+                                serviceStatistic.setProviderName(providerServiceEntity.getProvider().getName());
                                 serviceStatistic.setProviderId(providerServiceEntity.getProvider().getId());
                                 serviceStatistic.setServiceName(providerServiceEntity.getService().getName());
                             }
@@ -171,5 +175,10 @@ public class BookingServiceImpl implements BookingService{
             }
         }
         return serviceStatistics;
+    }
+
+    @Override
+    public List<ServiceStatistic> getServiceStatisticAllProvider(int month) {
+        return null;
     }
 }

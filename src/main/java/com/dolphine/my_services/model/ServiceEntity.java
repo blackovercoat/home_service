@@ -29,6 +29,9 @@ public class ServiceEntity implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "price")
+    private float price;
+
     @Column(name = "image")
     private String image;
 

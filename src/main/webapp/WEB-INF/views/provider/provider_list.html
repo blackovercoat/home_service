@@ -54,8 +54,14 @@
 </div>
 <div th:replace="fragments/layout :: footer"></div>
 <th:block th:replace="fragments/layout :: script"/>
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<script src="../../../resources/js/firebasefcm.js"
+        th:src="@{/resources/js/firebasefcm.js}"></script>
+<script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.js"
+        th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"
         th:src="@{/webjars/bootbox.js/4.4.0/bootbox.js}"></script>
-<script src="../../../resources/js/provider.js" th:src="@{/resources/js/provider.js}"></script>
+<script src="../../../resources/js/provider.js"
+        th:src="@{/resources/js/provider.js}"></script>
 </body>
 </html>

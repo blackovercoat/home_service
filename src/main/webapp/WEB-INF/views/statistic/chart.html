@@ -31,6 +31,7 @@
                     <label class="col-sm-4 control-label" for="provider">Provider:</label>
                     <div class="col-sm-4">
                         <select id="provider" onchange="getStatistic(this.value,document.getElementById('month').value)">
+                            <option value="0">All</option>
                             <option th:each="provider : ${providerList}"
                                     th:value="${provider.getId()}"
                                     th:text="${provider.getName()}">

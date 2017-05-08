@@ -98,6 +98,30 @@ public class WebServiceRestController {
         customerEntity.setAddress(address);
         return new ResponseEntity<Customer>(customerService.addCustomer(customerEntity), HttpStatus.OK);
     }
+    @RequestMapping(value = "provider/register", method = RequestMethod.GET)
+    public ResponseEntity<Provider> addNewProvider(@RequestParam(name = "email") String email,
+                                                   @RequestParam(name = "password") String password,
+                                                   @RequestParam(name = "name") String name,
+                                                   @RequestParam(name = "phoneNumber") String phoneNumber,
+                                                   @RequestParam(name = "image") String image,
+                                                   @RequestParam(name = "longitude") float longitude,
+                                                   @RequestParam(name = "latitude") float latitude,
+                                                   @RequestParam(name = "address") String address) throws CustomException {
+        if(providerService.getProviderByEmail(email)!=null)
+            throw new CustomException("This email is already in use!");
+        if(providerService.getProviderByPhoneNumber(phoneNumber)!=null)
+            throw new CustomException("This phone number is already in use!");
+        ProviderEntity providerEntity = new ProviderEntity();
+        providerEntity.setName(name);
+        providerEntity.setEmail(email);
+        providerEntity.setAddress(address);
+        providerEntity.setImage(image);
+        providerEntity.setLongitude(longitude);
+        providerEntity.setLatitude(latitude);
+        providerEntity.setPhoneNumber(phoneNumber);
+        providerEntity.setPassword(password);
+        return new ResponseEntity<Provider>(providerService.addProviderWebService(providerEntity), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/catalog/list", method = RequestMethod.GET)
     public List<CatalogAndService> showCatalog(){

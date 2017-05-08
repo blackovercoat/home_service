@@ -9,20 +9,20 @@ import lombok.ToString;
 @ToString
 @Data
 public class ServiceStatistic {
-    private float maxPrice;
-    private float minPrice;
+    private float price;
     private int providerId;
+    private String providerName;
     private String serviceName;
     private int bookingTimes;
 
     public ServiceStatistic() {
     }
 
-    public ServiceStatistic(float maxPrice, float minPrice, int providerId, String serviceName, int bookingTimes) {
-        this.maxPrice = maxPrice;
-        this.minPrice = minPrice;
+    public ServiceStatistic(float price, int providerId, String serviceName, int bookingTimes, String providerName) {
+        this.price = price;
         this.providerId = providerId;
         this.serviceName = serviceName;
         this.bookingTimes = bookingTimes;
+        this.providerName = providerName;
     }
 }

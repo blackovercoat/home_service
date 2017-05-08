@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by PC on 4/10/2017.
- */
 @Repository
 @EnableTransactionManagement
 public interface ServiceRepository extends JpaRepository<ServiceEntity,Integer> {
@@ -23,9 +20,11 @@ public interface ServiceRepository extends JpaRepository<ServiceEntity,Integer> 
     @Transactional
     @Query("update ServiceEntity set name=:name" +
             ", description=:description" +
+            ", price=:price" +
             ", image=:image where id=:id")
     void updateById(@Param(value = "id") int id
             ,@Param(value = "name") String name
             ,@Param(value = "description") String description
+            ,@Param(value = "price") float price
             ,@Param(value = "image") String image);
 }
