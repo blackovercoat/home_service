@@ -76,7 +76,8 @@ public class ProviderServiceServiceImpl implements ProviderServiceService{
             ServiceWebService services = new ServiceWebService(providerServiceEntity.getService().getId()
                     ,providerServiceEntity.getService().getName()
                     ,providerServiceEntity.getService().getDescription()
-                    ,providerServiceEntity.getService().getImage());
+                    ,providerServiceEntity.getService().getImage()
+                    ,providerServiceEntity.getService().getCatalog().getId());
             Provider provider = new Provider(providerServiceEntity.getProvider().getId()
                     ,providerServiceEntity.getProvider().getName()
                     ,providerServiceEntity.getProvider().getEmail()

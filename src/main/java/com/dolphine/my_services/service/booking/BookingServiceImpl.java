@@ -35,7 +35,8 @@ public class BookingServiceImpl implements BookingService{
             ServiceWebService services = new ServiceWebService(bookingEntity.getProviderServices().getService().getId()
                     ,bookingEntity.getProviderServices().getService().getName()
                     ,bookingEntity.getProviderServices().getService().getDescription()
-                    ,bookingEntity.getProviderServices().getService().getImage());
+                    ,bookingEntity.getProviderServices().getService().getImage()
+                    ,bookingEntity.getProviderServices().getService().getCatalog().getId());
             Provider provider = new Provider(bookingEntity.getProviderServices().getProvider().getId()
                     ,bookingEntity.getProviderServices().getProvider().getName()
                     ,bookingEntity.getProviderServices().getProvider().getEmail()

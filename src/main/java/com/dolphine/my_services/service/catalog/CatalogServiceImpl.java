@@ -73,7 +73,9 @@ public class CatalogServiceImpl implements CatalogService {
     public List<CatalogServiceAndRating> getCatalogServiceAndRatingByProviderId(int providerId) {
         List<ProviderServiceEntity> providerServiceEntities = providerServiceRepository.findByProvider_Id(providerId);
         List<CatalogEntity> allCatalog = catalogRepository.findAll();
-        List<ServiceAndRating> serviceAndRatings = new ArrayList<>();
+//        List<ServiceAndRating> serviceAndRatings = new ArrayList<>();
+        List<ProviderServiceWebService> providerServiceWebServiceList = new ArrayList<>();
+
         List<CatalogServiceAndRating> catalogServiceAndRatingList = new ArrayList<>();
         for(ProviderServiceEntity providerServiceEntity : providerServiceEntities) {
             List<RatingEntity> ratingEntities = providerServiceEntity.getRatings();
@@ -95,29 +97,50 @@ public class CatalogServiceImpl implements CatalogService {
                         ,ratingEntity.getRatingDate()
                         ,ratingEntity.getProviderServices().getId()));
             }
-            serviceAndRatings.add(new ServiceAndRating(providerServiceEntity.getService().getId()
-                    , providerServiceEntity.getService().getName()
-                    , providerServiceEntity.getService().getDescription()
-                    , providerServiceEntity.getService().getImage()
-                    , ratings
-                    ,providerServiceEntity.getService().getCatalog().getId()));
+            Provider provider = new Provider(providerServiceEntity.getProvider().getId()
+                    ,providerServiceEntity.getProvider().getName()
+                    ,providerServiceEntity.getProvider().getEmail()
+                    ,providerServiceEntity.getProvider().getPhoneNumber()
+                    ,providerServiceEntity.getProvider().getAddress()
+                    ,providerServiceEntity.getProvider().getLongitude()
+                    ,providerServiceEntity.getProvider().getLatitude()
+                    ,providerServiceEntity.getProvider().getImage());
+            ServiceWebService services = new ServiceWebService(providerServiceEntity.getService().getId()
+                    ,providerServiceEntity.getService().getName()
+                    ,providerServiceEntity.getService().getDescription()
+                    ,providerServiceEntity.getService().getImage()
+                    ,providerServiceEntity.getService().getCatalog().getId());
+            providerServiceWebServiceList.add(new ProviderServiceWebService(providerServiceEntity.getId()
+                    ,provider
+                    ,services
+                    ,providerServiceEntity.getMaxPrice()
+                    ,providerServiceEntity.getMinPrice()
+                    ,providerServiceEntity.getDescription()
+                    ,providerServiceEntity.getFrom()
+                    ,providerServiceEntity.getTo()
+                    ,ratings));
         }
         for(CatalogEntity catalogEntity : allCatalog){
-            List<ServiceAndRating> services = new ArrayList<>();
-            for(ServiceAndRating serviceAndRating : serviceAndRatings)
-                if(serviceAndRating.getCatalogId()==catalogEntity.getId())
-                    services.add(new ServiceAndRating(serviceAndRating.getId()
-                            ,serviceAndRating.getName()
-                            ,serviceAndRating.getDescription()
-                            ,serviceAndRating.getImage()
-                            ,serviceAndRating.getRatings()
-                            ,serviceAndRating.getCatalogId()));
+            List<ProviderServiceWebService> providerService = new ArrayList<>();
+            for(ProviderServiceWebService providerServiceWebService : providerServiceWebServiceList)
+                if(providerServiceWebService.getServices().getCatalogId()==catalogEntity.getId()){
 
-            if(!services.isEmpty())
+                    providerService.add(new ProviderServiceWebService(providerServiceWebService.getId()
+                            ,providerServiceWebService.getProvider()
+                            ,providerServiceWebService.getServices()
+                            ,providerServiceWebService.getMaxPrice()
+                            ,providerServiceWebService.getMinPrice()
+                            ,providerServiceWebService.getDescription()
+                            ,providerServiceWebService.getFrom()
+                            ,providerServiceWebService.getTo()
+                            ,providerServiceWebService.getRatingList()));
+            }
+
+//            if(!services.isEmpty())
                 catalogServiceAndRatingList.add(new CatalogServiceAndRating(catalogEntity.getId()
                         ,catalogEntity.getName()
                         ,catalogEntity.getDescription()
-                        ,services
+                        ,providerService
                         ,catalogEntity.getImage()));
         }
         return catalogServiceAndRatingList;
@@ -142,7 +165,11 @@ public class CatalogServiceImpl implements CatalogService {
             List<ServiceEntity> serviceEntities = catalogEntity.getServices();
             List<ServiceWebService> services = new ArrayList<ServiceWebService>();
             for(ServiceEntity serviceEntity : serviceEntities)
-                services.add(new ServiceWebService(serviceEntity.getId(),serviceEntity.getName(),serviceEntity.getDescription(),serviceEntity.getImage()));
+                services.add(new ServiceWebService(serviceEntity.getId()
+                        ,serviceEntity.getName()
+                        ,serviceEntity.getDescription()
+                        ,serviceEntity.getImage()
+                        ,serviceEntity.getCatalog().getId()));
             catalogAndServiceList.add(new CatalogAndService(catalogEntity.getId()
                     ,catalogEntity.getName(),catalogEntity.getDescription(),services,catalogEntity.getImage()));
         }
