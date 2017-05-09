@@ -1,8 +1,7 @@
 package com.dolphine.my_services.service.booking;
 
 import com.dolphine.my_services.dto.*;
-import com.dolphine.my_services.model.BookingEntity;
-import com.dolphine.my_services.model.ProviderServiceEntity;
+import com.dolphine.my_services.model.*;
 import com.dolphine.my_services.repository.BookingRepository;
 import com.dolphine.my_services.repository.ProviderServiceRepository;
 import org.springframework.stereotype.Service;
@@ -61,10 +60,28 @@ public class BookingServiceImpl implements BookingService{
     @Override
     public Booking saveBooking(BookingEntity bookingEntity) {
         Booking booking = new Booking();
+        Customer customer = new Customer(bookingEntity.getCustomer().getId()
+                ,bookingEntity.getCustomer().getName()
+                ,bookingEntity.getCustomer().getEmail()
+                ,bookingEntity.getCustomer().getPassword()
+                ,bookingEntity.getCustomer().getPhoneNumber()
+                ,bookingEntity.getCustomer().getAddress()
+                ,bookingEntity.getCustomer().getLongitude()
+                ,bookingEntity.getCustomer().getLatitude());
+        ServiceEntity serviceEntity = bookingEntity.getProviderServices().getService();
+        Catalog catalog = new Catalog(serviceEntity.getCatalog().getId()
+                ,serviceEntity.getCatalog().getName()
+                ,serviceEntity.getCatalog().getDescription()
+                ,serviceEntity.getCatalog().getImage());
+        ServiceDTOWebService serviceDTOWebService = new ServiceDTOWebService();
+        serviceDTOWebService.setName(serviceEntity.getName());
+        serviceDTOWebService.setDescription(serviceEntity.getDescription());
+        serviceDTOWebService.setImage(serviceEntity.getImage());
+        serviceDTOWebService.setCatalog(catalog);
         bookingRepository.save(bookingEntity);
         booking.setId(bookingEntity.getId());
-        booking.setCustomerId(bookingEntity.getCustomer().getId());
-        booking.setProviderServiceId(bookingEntity.getProviderServices().getId());
+        booking.setCustomer(customer);
+        booking.setService(serviceDTOWebService);
         booking.setBookingDate(bookingEntity.getBookingDate());
         booking.setWorkingDate(bookingEntity.getWorkingDate());
         booking.setDescription(bookingEntity.getDescription());
@@ -89,15 +106,8 @@ public class BookingServiceImpl implements BookingService{
     public List<Booking> getAllBookings() {
         List<BookingEntity> bookingEntities = bookingRepository.findAll();
         List<Booking> bookingList = new ArrayList<>();
-        for(BookingEntity bookingEntity : bookingEntities){
-            bookingList.add(new Booking(bookingEntity.getId()
-                    ,bookingEntity.getCustomer().getId()
-                    ,bookingEntity.getProviderServices().getId()
-                    ,bookingEntity.getBookingDate()
-                    ,bookingEntity.getWorkingDate()
-                    ,bookingEntity.getDescription()
-                    ,bookingEntity.getStatus()));
-        }
+        for(BookingEntity bookingEntity : bookingEntities)
+            bookingList.add(convertEntitytoDTO(bookingEntity));
         return bookingList;
     }
 
@@ -110,13 +120,7 @@ public class BookingServiceImpl implements BookingService{
         for(BookingEntity bookingEntity : bookingEntities)
             for(ProviderServiceEntity providerServiceEntity : providerServiceEntities)
                 if(bookingEntity.getProviderServices().getId()==providerServiceEntity.getId())
-            bookings.add(new Booking(bookingEntity.getId()
-                    ,bookingEntity.getCustomer().getId()
-                    ,bookingEntity.getProviderServices().getId()
-                    ,bookingEntity.getBookingDate()
-                    ,bookingEntity.getWorkingDate()
-                    ,bookingEntity.getDescription()
-                    ,bookingEntity.getStatus()));
+                    bookings.add(convertEntitytoDTO(bookingEntity));
         return bookings;
     }
 
@@ -180,5 +184,51 @@ public class BookingServiceImpl implements BookingService{
     @Override
     public List<ServiceStatistic> getServiceStatisticAllProvider(int month) {
         return null;
+    }
+
+    private Booking convertEntitytoDTO(BookingEntity bookingEntity){
+        Customer customer = new Customer(bookingEntity.getCustomer().getId()
+                ,bookingEntity.getCustomer().getName()
+                ,bookingEntity.getCustomer().getEmail()
+                ,bookingEntity.getCustomer().getPassword()
+                ,bookingEntity.getCustomer().getPhoneNumber()
+                ,bookingEntity.getCustomer().getAddress()
+                ,bookingEntity.getCustomer().getLongitude()
+                ,bookingEntity.getCustomer().getLatitude());
+        ServiceEntity serviceEntity = bookingEntity.getProviderServices().getService();
+        Catalog catalog = new Catalog(serviceEntity.getCatalog().getId()
+                ,serviceEntity.getCatalog().getName()
+                ,serviceEntity.getCatalog().getDescription()
+                ,serviceEntity.getCatalog().getImage());
+        List<Staff> staffs = new ArrayList<>();
+        List<StaffEntity> staffEntities = bookingEntity.getStaffs();
+        for(StaffEntity staffEntity : staffEntities){
+            ProviderEntity providerEntity = staffEntity.getProvider();
+            Provider provider = new Provider(providerEntity.getId()
+                    ,providerEntity.getName()
+                    ,providerEntity.getEmail()
+                    ,providerEntity.getPhoneNumber()
+                    ,providerEntity.getAddress()
+                    ,providerEntity.getLongitude()
+                    ,providerEntity.getLatitude()
+                    ,providerEntity.getImage());
+            staffs.add(new Staff(staffEntity.getId()
+                    ,staffEntity.getName()
+                    ,staffEntity.getPhoneNumber()
+                    ,provider));
+        }
+        ServiceDTOWebService serviceDTOWebService = new ServiceDTOWebService();
+        serviceDTOWebService.setName(serviceEntity.getName());
+        serviceDTOWebService.setDescription(serviceEntity.getDescription());
+        serviceDTOWebService.setImage(serviceEntity.getImage());
+        serviceDTOWebService.setCatalog(catalog);
+        return new Booking(bookingEntity.getId()
+                ,customer
+                ,serviceDTOWebService
+                ,bookingEntity.getBookingDate()
+                ,bookingEntity.getWorkingDate()
+                ,bookingEntity.getDescription()
+                ,bookingEntity.getStatus()
+                ,staffs);
     }
 }

@@ -57,6 +57,17 @@ public class CatalogServiceImpl implements CatalogService {
         return catalogRepository.save(catalogEntity);
     }
 
+    @Override
+    public Catalog addCatalogWebService(CatalogEntity catalogEntity) {
+        CatalogEntity catalogEnt = catalogRepository.save(catalogEntity);
+        Catalog catalog = new Catalog();
+        catalog.setId(catalogEnt.getId());
+        catalog.setName(catalogEntity.getName());
+        catalog.setDescription(catalogEntity.getDescription());
+        catalog.setImage(catalogEntity.getImage());
+        return catalog;
+    }
+
     @Transactional
     @Override
     public List<CatalogServiceAndRating> getCatalogServiceAndRatingByProviderId(int providerId) {

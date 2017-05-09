@@ -12,13 +12,13 @@ public class Staff {
     private int id;
     private String name;
     private String phoneNumber;
-    private int providerId;
+    private Provider provider;
 
-    public Staff(int id, String name, String phoneNumber, int providerId) {
+    public Staff(int id, String name, String phoneNumber, Provider provider) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.providerId = providerId;
+        this.provider = provider;
     }
 
     public Staff() {

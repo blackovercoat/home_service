@@ -19,6 +19,7 @@ public interface CatalogService {
     List<CatalogAndService> getAllCatalogAndService();
     void removeCatalogById(int catalogId);
     CatalogEntity addCatalog(CatalogForm catalogForm);
+    Catalog addCatalogWebService(CatalogEntity catalogEntity);
     List<CatalogServiceAndRating> getCatalogServiceAndRatingByProviderId(int providerId);
     CatalogEntity getCatalogById(int catalogId);
     void setCatalogById(CatalogForm catalogForm,int id);

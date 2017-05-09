@@ -1,6 +1,8 @@
 package com.dolphine.my_services.service.staff;
 
+import com.dolphine.my_services.dto.Provider;
 import com.dolphine.my_services.dto.Staff;
+import com.dolphine.my_services.model.ProviderEntity;
 import com.dolphine.my_services.model.StaffEntity;
 import com.dolphine.my_services.repository.StaffRepository;
 import org.springframework.stereotype.Service;
@@ -31,11 +33,21 @@ public class StaffServiceImpl implements StaffService {
     public List<Staff> getAllStaffs() {
         List<StaffEntity> staffEntities = staffRepository.findAll();
         List<Staff> staffList = new ArrayList<>();
-        for(StaffEntity staffEntity : staffEntities)
+        for(StaffEntity staffEntity : staffEntities){
+            ProviderEntity providerEntity = staffEntity.getProvider();
+            Provider provider = new Provider(providerEntity.getId()
+                    ,providerEntity.getName()
+                    ,providerEntity.getEmail()
+                    ,providerEntity.getPhoneNumber()
+                    ,providerEntity.getAddress()
+                    ,providerEntity.getLongitude()
+                    ,providerEntity.getLatitude()
+                    ,providerEntity.getImage());
             staffList.add(new Staff(staffEntity.getId()
                     ,staffEntity.getName()
                     ,staffEntity.getPhoneNumber()
-                    ,staffEntity.getProvider().getId()));
+                    ,provider));
+        }
         return staffList;
     }
 
@@ -43,22 +55,41 @@ public class StaffServiceImpl implements StaffService {
     public List<Staff> getStaffBProviderId(int providerId) {
         List<StaffEntity> staffEntities = staffRepository.findByProvider_Id(providerId);
         List<Staff> staffs = new ArrayList<>();
-        for(StaffEntity staffEntity : staffEntities)
+        for(StaffEntity staffEntity : staffEntities){
+            ProviderEntity providerEntity = staffEntity.getProvider();
+            Provider provider = new Provider(providerEntity.getId()
+                    ,providerEntity.getName()
+                    ,providerEntity.getEmail()
+                    ,providerEntity.getPhoneNumber()
+                    ,providerEntity.getAddress()
+                    ,providerEntity.getLongitude()
+                    ,providerEntity.getLatitude()
+                    ,providerEntity.getImage());
             staffs.add(new Staff(staffEntity.getId()
                     ,staffEntity.getName()
                     ,staffEntity.getPhoneNumber()
-                    ,staffEntity.getProvider().getId()));
+                    ,provider));
+        }
         return staffs;
     }
 
     @Override
     public Staff addStaff(StaffEntity staffEntity) {
+        ProviderEntity providerEntity = staffEntity.getProvider();
+        Provider provider = new Provider(providerEntity.getId()
+                ,providerEntity.getName()
+                ,providerEntity.getEmail()
+                ,providerEntity.getPhoneNumber()
+                ,providerEntity.getAddress()
+                ,providerEntity.getLongitude()
+                ,providerEntity.getLatitude()
+                ,providerEntity.getImage());
         staffRepository.save(staffEntity);
         Staff staff =  new Staff();
         staff.setId(staffEntity.getId());
         staff.setPhoneNumber(staffEntity.getPhoneNumber());
         staff.setName(staffEntity.getName());
-        staff.setProviderId(staffEntity.getProvider().getId());
+        staff.setProvider(provider);
         return staff;
     }
 

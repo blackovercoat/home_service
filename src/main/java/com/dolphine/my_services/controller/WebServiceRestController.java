@@ -8,6 +8,7 @@ import com.dolphine.my_services.service.customer.CustomerService;
 import com.dolphine.my_services.service.provider.ProviderService;
 import com.dolphine.my_services.service.providerservice.ProviderServiceService;
 import com.dolphine.my_services.service.rating.RatingService;
+import com.dolphine.my_services.service.services.ServicesService;
 import com.dolphine.my_services.service.staff.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,8 +32,9 @@ public class WebServiceRestController {
     private final BookingService bookingService;
     private final RatingService ratingService;
     private final StaffService staffService;
+    private final ServicesService servicesService;
 
-    public WebServiceRestController(CatalogService catalogService, ProviderService providerService, CustomerService customerService, ProviderServiceService providerServiceService, BookingService bookingService, RatingService ratingService, StaffService staffService) {
+    public WebServiceRestController(CatalogService catalogService, ProviderService providerService, CustomerService customerService, ProviderServiceService providerServiceService, BookingService bookingService, RatingService ratingService, StaffService staffService, ServicesService servicesService) {
         this.catalogService = catalogService;
         this.providerService = providerService;
         this.customerService = customerService;
@@ -40,6 +42,7 @@ public class WebServiceRestController {
         this.bookingService = bookingService;
         this.ratingService = ratingService;
         this.staffService = staffService;
+        this.servicesService = servicesService;
     }
 
     @RequestMapping(value = "customer/login", method = RequestMethod.GET)
@@ -156,12 +159,6 @@ public class WebServiceRestController {
         return new ResponseEntity<ServiceRating>(serviceRating, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public List<ServiceStatistic> test(@RequestParam(name = "providerId") int providerId
-            ,@RequestParam(name = "month") int month) {
-        return bookingService.getServiceStatisticByProviderId(providerId,month);
-    }
-
     @RequestMapping(value = "/rating/add", method = RequestMethod.GET)
     public ResponseEntity<Rating> newRating(@RequestParam(name = "customerId") int customerId
             ,@RequestParam(name = "providerServiceId") int providerServiceId
@@ -251,6 +248,35 @@ public class WebServiceRestController {
         staffEntity.setProvider(providerService.getProviderById(providerId));
         return new ResponseEntity<Staff>(staffService.addStaff(staffEntity), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/service/add",method = RequestMethod.GET)
+    public ResponseEntity<ServiceDTOWebService> newService(@RequestParam(name = "name") String name,
+                                            @RequestParam(name = "description") String description,
+                                            @RequestParam(name = "price") float price,
+                                            @RequestParam(name = "image") String image,
+                                            @RequestParam(name = "catalogId") int catalogId) throws CustomException {
+        if(catalogService.getCatalogById(catalogId)==null)
+            throw new CustomException("catalogId not found!");
+        ServiceEntity serviceEntity = new ServiceEntity();
+        serviceEntity.setName(name);
+        serviceEntity.setDescription(description);
+        serviceEntity.setImage(image);
+        serviceEntity.setPrice(price);
+        serviceEntity.setCatalog(catalogService.getCatalogById(catalogId));
+        return new ResponseEntity<ServiceDTOWebService>(servicesService.addServiceWebService(serviceEntity), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/catalog/add",method = RequestMethod.GET)
+    public ResponseEntity<Catalog> newCatalog(@RequestParam(name = "name") String name,
+                                              @RequestParam(name = "description") String description,
+                                              @RequestParam(name = "image") String image) throws CustomException {
+        CatalogEntity catalogEntity = new CatalogEntity();
+        catalogEntity.setName(name);
+        catalogEntity.setDescription(description);
+        catalogEntity.setImage(image);
+        return new ResponseEntity<Catalog>(catalogService.addCatalogWebService(catalogEntity), HttpStatus.OK);
+    }
+
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {

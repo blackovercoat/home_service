@@ -26,10 +26,6 @@ public class ReportController {
         this.providerService = providerService;
         this.bookingService = bookingService;
     }
-    @RequestMapping("statistic/reportRender")
-    public String cha(){
-        return "statistic/reportRender";
-    }
 
     @ResponseBody
     @RequestMapping(value = "statistic/provider_list", method = RequestMethod.GET)

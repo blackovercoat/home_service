@@ -1,7 +1,10 @@
 package com.dolphine.my_services.service.services;
 
+import com.dolphine.my_services.dto.Catalog;
+import com.dolphine.my_services.dto.ServiceDTOWebService;
 import com.dolphine.my_services.dto.ServiceForm;
 import com.dolphine.my_services.dto.ServiceDTO;
+import com.dolphine.my_services.model.CatalogEntity;
 import com.dolphine.my_services.model.ServiceEntity;
 import com.dolphine.my_services.repository.CatalogRepository;
 import com.dolphine.my_services.repository.ServiceRepository;
@@ -33,6 +36,21 @@ public class ServicesServiceImpl implements ServicesService {
         serviceEntity.setCatalog(catalogRepository.findOne(serviceForm.getCatalogId()));
         serviceEntity.setImage(serviceForm.getImage());
         return serviceRepository.save(serviceEntity);
+    }
+
+    @Override
+    public ServiceDTOWebService addServiceWebService(ServiceEntity serviceEntity) {
+        Catalog catalog = new Catalog(serviceEntity.getCatalog().getId()
+                ,serviceEntity.getCatalog().getName()
+                ,serviceEntity.getCatalog().getDescription()
+                ,serviceEntity.getCatalog().getImage());
+        ServiceDTOWebService serviceDTO = new ServiceDTOWebService();
+        serviceDTO.setName(serviceEntity.getName());
+        serviceDTO.setDescription(serviceEntity.getDescription());
+        serviceDTO.setImage(serviceEntity.getImage());
+        serviceDTO.setCatalog(catalog);
+        serviceRepository.save(serviceEntity);
+        return serviceDTO;
     }
 
     @Override
