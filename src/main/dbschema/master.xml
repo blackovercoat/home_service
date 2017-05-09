@@ -55,5 +55,6 @@
     <include file="src/main/dbschema/R2.2/change_long_lat.xml" />
     <include file="src/main/dbschema/R2.2/update_rating_date.xml" />
     <include file="src/main/dbschema/R2.2/add_column_price_for_service.xml" />
+    <include file="src/main/dbschema/R2.2/add_column_price_for_service_fix.xml" />
 
 </databaseChangeLog>
