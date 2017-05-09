@@ -16,12 +16,14 @@ public class ServiceAndRating {
     private String description;
     private String image;
     private List<Rating> ratings;
+    private int catalogId;
 
-    public ServiceAndRating(int id, String name, String description, String image, List<Rating> ratings) {
+    public ServiceAndRating(int id, String name, String description, String image, List<Rating> ratings,int catalogId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
         this.ratings = ratings;
+        this.catalogId = catalogId;
     }
 }

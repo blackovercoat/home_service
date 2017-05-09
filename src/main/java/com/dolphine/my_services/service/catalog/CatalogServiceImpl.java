@@ -99,17 +99,19 @@ public class CatalogServiceImpl implements CatalogService {
                     , providerServiceEntity.getService().getName()
                     , providerServiceEntity.getService().getDescription()
                     , providerServiceEntity.getService().getImage()
-                    , ratings));
+                    , ratings
+                    ,providerServiceEntity.getService().getCatalog().getId()));
         }
         for(CatalogEntity catalogEntity : allCatalog){
             List<ServiceAndRating> services = new ArrayList<>();
             for(ServiceAndRating serviceAndRating : serviceAndRatings)
-                if(serviceAndRating.getId()==catalogEntity.getId())
+                if(serviceAndRating.getCatalogId()==catalogEntity.getId())
                     services.add(new ServiceAndRating(serviceAndRating.getId()
                             ,serviceAndRating.getName()
                             ,serviceAndRating.getDescription()
                             ,serviceAndRating.getImage()
-                            ,serviceAndRating.getRatings()));
+                            ,serviceAndRating.getRatings()
+                            ,serviceAndRating.getCatalogId()));
 
             if(!services.isEmpty())
                 catalogServiceAndRatingList.add(new CatalogServiceAndRating(catalogEntity.getId()
