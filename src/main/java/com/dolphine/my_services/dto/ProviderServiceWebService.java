@@ -18,19 +18,22 @@ public class ProviderServiceWebService {
     private float maxPrice;
     private float minPrice;
     private String description;
-    private Date from;
-    private Date to;
+    private Date fromTime;
+    private Date toTime;
     private List<Rating> ratingList;
 
-    public ProviderServiceWebService(int id, Provider provider, ServiceWebService services, float maxPrice, float minPrice, String description, Date from, Date to, List<Rating> ratingList) {
+    public ProviderServiceWebService(int id, Provider provider, ServiceWebService services, float maxPrice, float minPrice, String description, Date fromTime, Date toTime, List<Rating> ratingList) {
         this.id = id;
         this.provider = provider;
         this.services = services;
         this.maxPrice = maxPrice;
         this.minPrice = minPrice;
         this.description = description;
-        this.from = from;
-        this.to = to;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
         this.ratingList = ratingList;
+    }
+
+    public ProviderServiceWebService() {
     }
 }

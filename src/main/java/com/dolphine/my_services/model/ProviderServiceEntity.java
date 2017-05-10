@@ -2,6 +2,7 @@ package com.dolphine.my_services.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 @Data
 @Entity
+@ToString
 @EqualsAndHashCode(exclude = {"provider", "service","ratings","bookings"})
 @Table(name = "provider_service")
 public class ProviderServiceEntity {
@@ -30,11 +32,11 @@ public class ProviderServiceEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "from")
-    private Date from;
+    @Column(name = "from_time")
+    private Date fromTime;
 
-    @Column(name = "to")
-    private Date to;
+    @Column(name = "to_time")
+    private Date toTime;
 
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)

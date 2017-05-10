@@ -148,6 +148,28 @@ public class WebServiceRestController {
     public List<ProviderServiceWebService> getProviderServiceByService(@RequestParam(name = "serviceId") int serviceId) {
         return providerServiceService.getProviderRatingByServiceId(serviceId);
     }
+    @RequestMapping(value = "/providerService/add",method = RequestMethod.GET)
+    public ResponseEntity<ProviderServiceWebService> newProviderService(@RequestParam(name = "providerId") int providerId,
+                                                           @RequestParam(name = "serviceId") int serviceId,
+                                                           @RequestParam(name = "maxPrice") float maxPrice,
+                                                           @RequestParam(name = "minPrice") float minPrice,
+                                                           @RequestParam(name = "fromTime") Date from,
+                                                           @RequestParam(name = "toTime") Date to,
+                                                           @RequestParam(name = "description") String description) throws CustomException {
+        if(servicesService.getServiceById(serviceId)==null)
+            throw new CustomException("serviceId not found!");
+        if(providerService.getProviderById(providerId)==null)
+            throw new CustomException("providerId not found!");
+        ProviderServiceEntity providerServiceEntity = new ProviderServiceEntity();
+        providerServiceEntity.setProvider(providerService.getProviderById(providerId));
+        providerServiceEntity.setService(servicesService.getServiceById(serviceId));
+        providerServiceEntity.setDescription(description);
+        providerServiceEntity.setMinPrice(minPrice);
+        providerServiceEntity.setMaxPrice(maxPrice);
+        providerServiceEntity.setFromTime(from);
+        providerServiceEntity.setToTime(to);
+        return new ResponseEntity<ProviderServiceWebService>(providerServiceService.addProviderService(providerServiceEntity), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/bookingHistory", method = RequestMethod.GET)
     public List<BookingHistory> getBookingHistory(@RequestParam(name = "customerId") int customerId) {

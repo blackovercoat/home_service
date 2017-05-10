@@ -116,8 +116,8 @@ public class CatalogServiceImpl implements CatalogService {
                     ,providerServiceEntity.getMaxPrice()
                     ,providerServiceEntity.getMinPrice()
                     ,providerServiceEntity.getDescription()
-                    ,providerServiceEntity.getFrom()
-                    ,providerServiceEntity.getTo()
+                    ,providerServiceEntity.getFromTime()
+                    ,providerServiceEntity.getToTime()
                     ,ratings));
         }
         for(CatalogEntity catalogEntity : allCatalog){
@@ -131,8 +131,8 @@ public class CatalogServiceImpl implements CatalogService {
                             ,providerServiceWebService.getMaxPrice()
                             ,providerServiceWebService.getMinPrice()
                             ,providerServiceWebService.getDescription()
-                            ,providerServiceWebService.getFrom()
-                            ,providerServiceWebService.getTo()
+                            ,providerServiceWebService.getFromTime()
+                            ,providerServiceWebService.getToTime()
                             ,providerServiceWebService.getRatingList()));
             }
 

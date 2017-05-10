@@ -51,6 +51,35 @@ public class ProviderServiceServiceImpl implements ProviderServiceService{
         return providerServiceRepository.findOne(providerServiceId);
     }
 
+    @Transactional
+    @Override
+    public ProviderServiceWebService addProviderService(ProviderServiceEntity providerServiceEntity) {
+        ProviderServiceEntity providerServiceEnt = providerServiceRepository.save(providerServiceEntity);
+        Provider provider = new Provider(providerServiceEntity.getProvider().getId()
+                ,providerServiceEntity.getProvider().getName()
+                ,providerServiceEntity.getProvider().getEmail()
+                ,providerServiceEntity.getProvider().getPhoneNumber()
+                ,providerServiceEntity.getProvider().getAddress()
+                ,providerServiceEntity.getProvider().getLongitude()
+                ,providerServiceEntity.getProvider().getLatitude()
+                ,providerServiceEntity.getProvider().getImage());
+        ServiceWebService services = new ServiceWebService(providerServiceEntity.getService().getId()
+                ,providerServiceEntity.getService().getName()
+                ,providerServiceEntity.getService().getDescription()
+                ,providerServiceEntity.getService().getImage()
+                ,providerServiceEntity.getService().getCatalog().getId());
+        ProviderServiceWebService providerServiceWebService = new ProviderServiceWebService();
+        providerServiceWebService.setId(providerServiceEnt.getId());
+        providerServiceWebService.setMinPrice(providerServiceEntity.getMinPrice());
+        providerServiceWebService.setMaxPrice(providerServiceEntity.getMaxPrice());
+        providerServiceWebService.setDescription(providerServiceEnt.getDescription());
+        providerServiceWebService.setFromTime(providerServiceEnt.getFromTime());
+        providerServiceWebService.setToTime(providerServiceEnt.getToTime());
+        providerServiceWebService.setProvider(provider);
+        providerServiceWebService.setServices(services);
+        return providerServiceWebService;
+    }
+
     private List<ProviderServiceWebService> convertListServiceEntityToDTO(List<ProviderServiceEntity> providerServiceEntities){
         List<ProviderServiceWebService> providerServiceWebServiceList = new ArrayList<>();
         for(ProviderServiceEntity providerServiceEntity : providerServiceEntities){
@@ -92,8 +121,8 @@ public class ProviderServiceServiceImpl implements ProviderServiceService{
                     ,providerServiceEntity.getMaxPrice()
                     ,providerServiceEntity.getMinPrice()
                     ,providerServiceEntity.getDescription()
-                    ,providerServiceEntity.getFrom()
-                    ,providerServiceEntity.getTo()
+                    ,providerServiceEntity.getFromTime()
+                    ,providerServiceEntity.getToTime()
                     ,ratings));
         }
         return providerServiceWebServiceList;
