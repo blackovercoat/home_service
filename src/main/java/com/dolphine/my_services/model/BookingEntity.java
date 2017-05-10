@@ -46,4 +46,7 @@ public class BookingEntity {
             joinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "staff_id", referencedColumnName = "id"))
     private List<StaffEntity> staffs;
+
+    @OneToMany(mappedBy = "bookingDetailEntityPK.bookingById", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<BookingDetailEntity> bookingDetails;
 }

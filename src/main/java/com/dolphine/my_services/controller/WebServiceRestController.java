@@ -3,6 +3,7 @@ package com.dolphine.my_services.controller;
 import com.dolphine.my_services.dto.*;
 import com.dolphine.my_services.model.*;
 import com.dolphine.my_services.service.booking.BookingService;
+import com.dolphine.my_services.service.booking_detail.BookingDetailService;
 import com.dolphine.my_services.service.catalog.CatalogService;
 import com.dolphine.my_services.service.customer.CustomerService;
 import com.dolphine.my_services.service.provider.ProviderService;
@@ -33,8 +34,9 @@ public class WebServiceRestController {
     private final RatingService ratingService;
     private final StaffService staffService;
     private final ServicesService servicesService;
+    private final BookingDetailService bookingDetailService;
 
-    public WebServiceRestController(CatalogService catalogService, ProviderService providerService, CustomerService customerService, ProviderServiceService providerServiceService, BookingService bookingService, RatingService ratingService, StaffService staffService, ServicesService servicesService) {
+    public WebServiceRestController(CatalogService catalogService, ProviderService providerService, CustomerService customerService, ProviderServiceService providerServiceService, BookingService bookingService, RatingService ratingService, StaffService staffService, ServicesService servicesService, BookingDetailService bookingDetailService) {
         this.catalogService = catalogService;
         this.providerService = providerService;
         this.customerService = customerService;
@@ -43,6 +45,7 @@ public class WebServiceRestController {
         this.ratingService = ratingService;
         this.staffService = staffService;
         this.servicesService = servicesService;
+        this.bookingDetailService = bookingDetailService;
     }
 
     @RequestMapping(value = "customer/login", method = RequestMethod.GET)
@@ -199,12 +202,28 @@ public class WebServiceRestController {
         bookingEntity.setStatus(0);
         return new ResponseEntity<Booking>(bookingService.saveBooking(bookingEntity), HttpStatus.OK);
     }
+
     @RequestMapping(value = "/booking/status",method = RequestMethod.GET)
     public ResponseEntity<Integer> changeBookingStatus(@RequestParam(name = "bookingId") int bookingId
             ,@RequestParam(name = "status") int status) throws CustomException {
         if(bookingService.getBookingById(bookingId)==null)
             throw new CustomException("bookingId is not valid!");
         return new ResponseEntity<Integer>(bookingService.setBookingStatusById(bookingId,status), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/bookingDetail/add",method = RequestMethod.GET)
+    public ResponseEntity<BookingDetail> addStaffForBooking(@RequestParam(name = "bookingId") int bookingId
+            ,@RequestParam(name = "staffId") int staffId) throws CustomException {
+        if(bookingService.getBookingById(bookingId)==null)
+            throw new CustomException("bookingId is not valid!");
+        if(staffService.getStaffbyId(staffId)==null)
+            throw new CustomException("staffId is not valid!");
+        BookingDetailEntityPK bookingDetailEntityPK = new BookingDetailEntityPK();
+        bookingDetailEntityPK.setBookingById(bookingService.getBookingById(bookingId));
+        bookingDetailEntityPK.setStaffById(staffService.getStaffbyId(staffId));
+        BookingDetailEntity bookingDetailEntity = new BookingDetailEntity();
+        bookingDetailEntity.setBookingDetailEntityPK(bookingDetailEntityPK);
+        return new ResponseEntity<BookingDetail>(bookingDetailService.addBookingDetail(bookingDetailEntity), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/booking/list", method = RequestMethod.GET)

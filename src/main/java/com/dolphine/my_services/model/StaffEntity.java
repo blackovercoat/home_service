@@ -34,4 +34,6 @@ public class StaffEntity implements Serializable {
     @ManyToMany(mappedBy = "staffs")
     private List<BookingEntity> bookings;
 
+    @OneToMany(mappedBy = "bookingDetailEntityPK.staffById", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<BookingDetailEntity> bookingDetails;
 }
