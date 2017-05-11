@@ -14,4 +14,5 @@ public interface ProviderServiceService {
     List<ProviderServiceWebService> getProviderRatingByServiceId(int serviceId);
     ProviderServiceEntity getProviderServiceById(int providerServiceId);
     ProviderServiceWebService addProviderService(ProviderServiceEntity providerServiceEntity);
+    int setProviderServiceById(ProviderServiceEntity providerServiceEntity,int id);
 }

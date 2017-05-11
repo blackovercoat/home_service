@@ -67,6 +67,32 @@ public class WebServiceRestController {
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "customer/edit", method = RequestMethod.GET)
+    public ResponseEntity<Integer> updateCustomer(@RequestParam(name = "customerId") int customerId,
+                                 @RequestParam(name = "email") String email,
+                                 @RequestParam(name = "password") String password,
+                                 @RequestParam(name = "name") String name,
+                                 @RequestParam(name = "longitude") float longitude,
+                                 @RequestParam(name = "latitude") float latitude,
+                                 @RequestParam(name = "phoneNumber") String phoneNumber,
+                                 @RequestParam(name = "address") String address) throws CustomException {
+        if(customerService.getCustomerById(customerId)==null)
+            throw new CustomException("customerId is not valid!");
+        if(customerService.getCustomerByEmail(email)!=null&&!customerService.getCustomerById(customerId).getEmail().equalsIgnoreCase(email))
+            throw new CustomException("This email is already in use!");
+        if(customerService.getCustomerByPhoneNumber(phoneNumber)!=null&&!customerService.getCustomerById(customerId).getPhoneNumber().equalsIgnoreCase(phoneNumber))
+            throw new CustomException("This phone number is already in use!");
+        CustomerEntity customerEntity = customerService.getCustomerById(customerId);
+        customerEntity.setEmail(email);
+        customerEntity.setName(name);
+        customerEntity.setPassword(password);
+        customerEntity.setLongitude(longitude);
+        customerEntity.setLatitude(latitude);
+        customerEntity.setPhoneNumber(phoneNumber);
+        customerEntity.setAddress(address);
+        return new ResponseEntity<Integer>(customerService.setCustomerById(customerEntity,customerId), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "provider/login", method = RequestMethod.GET)
     public ResponseEntity<Provider> getProviderInfo(@RequestParam(name = "email") String email,
                                                     @RequestParam(name = "password") String password) throws CustomException {
@@ -129,6 +155,34 @@ public class WebServiceRestController {
         return new ResponseEntity<Provider>(providerService.addProviderWebService(providerEntity), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "provider/edit", method = RequestMethod.GET)
+    public ResponseEntity<Integer> updateProvider(@RequestParam(name = "providerId") int providerId,
+                                                         @RequestParam(name = "name") String name,
+                                                         @RequestParam(name = "email") String email,
+                                                         @RequestParam(name = "phoneNumber") String phoneNumber,
+                                                         @RequestParam(name = "address") String address,
+                                                         @RequestParam(name = "password") String password,
+                                                         @RequestParam(name = "longitude") float longitude,
+                                                         @RequestParam(name = "latitude") float latitude,
+                                                         @RequestParam(name = "image") String image) throws CustomException {
+        if(providerService.getProviderById(providerId)==null)
+            throw new CustomException("providerId is not valid!");
+        if(providerService.getProviderByEmail(email)!=null&&!providerService.getProviderById(providerId).getEmail().equalsIgnoreCase(email))
+            throw new CustomException("This email is already in use!");
+        if(providerService.getProviderByPhoneNumber(phoneNumber)!=null&&!providerService.getProviderById(providerId).getPhoneNumber().equalsIgnoreCase(phoneNumber))
+            throw new CustomException("This phone number is already in use!");
+        ProviderEntity providerEntity = providerService.getProviderById(providerId);
+        providerEntity.setName(name);
+        providerEntity.setEmail(email);
+        providerEntity.setPassword(password);
+        providerEntity.setPhoneNumber(phoneNumber);
+        providerEntity.setAddress(address);
+        providerEntity.setLongitude(longitude);
+        providerEntity.setLatitude(latitude);
+        providerEntity.setImage(image);
+        return new ResponseEntity<Integer>(providerService.setProviderById(providerEntity,providerId), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/catalog/list", method = RequestMethod.GET)
     public List<CatalogAndService> showCatalog(){
         return catalogService.getAllCatalogAndService();
@@ -153,8 +207,8 @@ public class WebServiceRestController {
                                                            @RequestParam(name = "serviceId") int serviceId,
                                                            @RequestParam(name = "maxPrice") float maxPrice,
                                                            @RequestParam(name = "minPrice") float minPrice,
-                                                           @RequestParam(name = "fromTime") Date from,
-                                                           @RequestParam(name = "toTime") Date to,
+                                                           @RequestParam(name = "fromTime") Date fromTime,
+                                                           @RequestParam(name = "toTime") Date toTime,
                                                            @RequestParam(name = "description") String description) throws CustomException {
         if(servicesService.getServiceById(serviceId)==null)
             throw new CustomException("serviceId not found!");
@@ -166,9 +220,35 @@ public class WebServiceRestController {
         providerServiceEntity.setDescription(description);
         providerServiceEntity.setMinPrice(minPrice);
         providerServiceEntity.setMaxPrice(maxPrice);
-        providerServiceEntity.setFromTime(from);
-        providerServiceEntity.setToTime(to);
+        providerServiceEntity.setFromTime(fromTime);
+        providerServiceEntity.setToTime(toTime);
         return new ResponseEntity<ProviderServiceWebService>(providerServiceService.addProviderService(providerServiceEntity), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "providerService/edit", method = RequestMethod.GET)
+    public ResponseEntity<Integer> updateProviderService(@RequestParam(name = "providerServiceId") int providerServiceId,
+                                                         @RequestParam(name = "providerId") int providerId,
+                                                         @RequestParam(name = "serviceId") int serviceId,
+                                                         @RequestParam(name = "maxPrice") float maxPrice,
+                                                         @RequestParam(name = "minPrice") float minPrice,
+                                                         @RequestParam(name = "fromTime") Date fromTime,
+                                                         @RequestParam(name = "toTime") Date toTime,
+                                                         @RequestParam(name = "description") String description) throws CustomException {
+        if(providerServiceService.getProviderServiceById(providerServiceId)==null)
+            throw new CustomException("providerServiceId is not valid!");
+        if(providerService.getProviderById(providerId)==null)
+            throw new CustomException("providerId is not valid!");
+        if(servicesService.getServiceById(serviceId)==null)
+            throw new CustomException("serviceId is not valid!");
+        ProviderServiceEntity providerServiceEntity = providerServiceService.getProviderServiceById(providerServiceId);
+        providerServiceEntity.setProvider(providerService.getProviderById(providerId));
+        providerServiceEntity.setService(servicesService.getServiceById(serviceId));
+        providerServiceEntity.setMaxPrice(maxPrice);
+        providerServiceEntity.setMinPrice(minPrice);
+        providerServiceEntity.setFromTime(fromTime);
+        providerServiceEntity.setToTime(toTime);
+        providerServiceEntity.setDescription(description);
+        return new ResponseEntity<Integer>(providerServiceService.setProviderServiceById(providerServiceEntity,providerServiceId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/bookingHistory", method = RequestMethod.GET)

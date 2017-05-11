@@ -80,6 +80,18 @@ public class ProviderServiceServiceImpl implements ProviderServiceService{
         return providerServiceWebService;
     }
 
+    @Override
+    public int setProviderServiceById(ProviderServiceEntity providerServiceEntity, int id) {
+        return providerServiceRepository.updateById(providerServiceEntity.getId()
+                ,providerServiceEntity.getProvider()
+                ,providerServiceEntity.getService()
+                ,providerServiceEntity.getMaxPrice()
+                ,providerServiceEntity.getMinPrice()
+                ,providerServiceEntity.getDescription()
+                ,providerServiceEntity.getFromTime()
+                ,providerServiceEntity.getToTime());
+    }
+
     private List<ProviderServiceWebService> convertListServiceEntityToDTO(List<ProviderServiceEntity> providerServiceEntities){
         List<ProviderServiceWebService> providerServiceWebServiceList = new ArrayList<>();
         for(ProviderServiceEntity providerServiceEntity : providerServiceEntities){

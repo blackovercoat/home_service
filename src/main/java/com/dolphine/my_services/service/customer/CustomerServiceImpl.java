@@ -68,10 +68,25 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void setCustomerById(CustomerForm customerForm, int id) {
-        customerRepository.updateById(id,customerForm.getName()
-                ,customerForm.getEmail()
-                ,customerForm.getPhoneNumber()
-                ,customerForm.getAddress());
+        CustomerEntity customerEntity = customerRepository.getOne(id);
+        customerRepository.updateById(id,customerEntity.getName()
+                ,customerEntity.getEmail()
+                ,customerEntity.getPhoneNumber()
+                ,customerEntity.getLongitude()
+                ,customerEntity.getLatitude()
+                ,customerEntity.getPassword()
+                ,customerEntity.getAddress());
+    }
+
+    @Override
+    public int setCustomerById(CustomerEntity customerEntity, int id) {
+        return customerRepository.updateById(id,customerEntity.getName()
+                ,customerEntity.getEmail()
+                ,customerEntity.getPhoneNumber()
+                ,customerEntity.getLongitude()
+                ,customerEntity.getLatitude()
+                ,customerEntity.getPassword()
+                ,customerEntity.getAddress());
     }
 
     @Override

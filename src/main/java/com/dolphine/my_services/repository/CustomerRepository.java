@@ -24,10 +24,16 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer
     @Query("update CustomerEntity set name=:name" +
             ", email=:email" +
             ", phoneNumber=:phoneNumber" +
+            ", longitude=:longitude" +
+            ", latitude=:latitude" +
+            ", password=:password" +
             ", address=:address where id=:id")
-    void updateById(@Param(value = "id") int id
+    int updateById(@Param(value = "id") int id
             ,@Param(value = "name") String name
             ,@Param(value = "email") String email
             ,@Param(value = "phoneNumber") String phoneNumber
+            ,@Param(value = "longitude") float longitude
+            ,@Param(value = "latitude") float latitude
+            ,@Param(value = "password") String password
             ,@Param(value = "address") String address);
 }

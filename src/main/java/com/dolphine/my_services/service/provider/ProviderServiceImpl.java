@@ -110,6 +110,18 @@ public class ProviderServiceImpl implements ProviderService{
                 ,providerForm.getPassword());
     }
 
+    @Override
+    public int setProviderById(ProviderEntity providerEntity, int id) {
+        return providerRepository.updateById(id,providerEntity.getName()
+                ,providerEntity.getEmail()
+                ,providerEntity.getPhoneNumber()
+                ,providerEntity.getAddress()
+                ,providerEntity.getLongitude()
+                ,providerEntity.getLatitude()
+                ,providerEntity.getImage()
+                ,providerEntity.getPassword());
+    }
+
     @Transactional
     @Override
     public void removeProviderById(int providerId) {

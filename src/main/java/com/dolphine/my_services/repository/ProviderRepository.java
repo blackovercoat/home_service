@@ -32,7 +32,7 @@ public interface ProviderRepository extends JpaRepository<ProviderEntity,Integer
             ", latitude=:latitude" +
             ", image=:image" +
             ", password=:password where id=:id")
-    void updateById(@Param(value = "id") int id
+    int updateById(@Param(value = "id") int id
             , @Param(value = "name") String name
             , @Param(value = "email") String email
             , @Param(value = "phoneNumber") String phoneNumber

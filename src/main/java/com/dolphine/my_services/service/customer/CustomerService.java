@@ -17,5 +17,6 @@ public interface CustomerService {
     CustomerEntity getCustomerById(int customerId);
     void removeCustomerById(int customerId);
     void setCustomerById(CustomerForm customerForm, int id);
+    int setCustomerById(CustomerEntity customerEntity, int id);
     List<CustomerEntity> getAllCustomer();
 }

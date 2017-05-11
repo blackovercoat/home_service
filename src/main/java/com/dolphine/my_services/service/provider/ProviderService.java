@@ -18,5 +18,6 @@ public interface ProviderService {
     ProviderEntity getProviderById(int Id);
     ProviderEntity getProviderByEmail(String email);
     void setProviderById(ProviderForm providerForm,int id);
+    int setProviderById(ProviderEntity providerEntity,int id);
     void removeProviderById(int providerId);
 }
