@@ -34,11 +34,11 @@
                     </thead>
                     <tbody>
                     <tr th:id="${customer.getId()}" th:each="customer : ${listCustomer}">
-                        <td data-title="Name" th:text="${customer.getName()}">L</td>
-                        <td data-title="Email" th:text="${customer.getEmail()}">a@gmail</td>
-                        <td data-title="Phone Number" th:text="${customer.getPhoneNumber()}">2</td>
-                        <td data-title="Address" th:text="${customer.getAddress()}">Sick</td>
-                        <td>
+                        <td class="col-md-2" data-title="Name" th:text="${customer.getName()}">L</td>
+                        <td class="col-md-1" data-title="Email" th:text="${customer.getEmail()}">a@gmail</td>
+                        <td class="col-md-1" data-title="Phone Number" th:text="${customer.getPhoneNumber()}">2</td>
+                        <td class="col-md-2" data-title="Address" th:text="${customer.getAddress()}">Sick</td>
+                        <td class="col-md-2">
                             <a th:href="@{/customer/edit/} + ${customer.getId()}" class="btn btn-md btn-primary" th:id="${'edit_' + customer.getId()}">Edit</a>
                             <a href="#" class="btn btn-md btn-danger" th:id="${'delete_' + customer.getId()}">Delete</a>
                         </td>

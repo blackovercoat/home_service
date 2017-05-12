@@ -130,9 +130,9 @@
                                     </thead>
                                     <tbody>
                                     <tr th:id="${service.getId()}" th:each="service : ${defaultservice}">
-                                        <td data-title="Name" th:text="${service.getName()}">Clean bath room</td>
-                                        <td data-title="Description" th:text="${service.getDescription()}">cleaning your bath room</td>
-                                        <td data-title="Price" th:text="${service.getPrice()}">cleaning your bath room</td>
+                                        <td class="col-md-1" data-title="Name" th:text="${service.getName()}">Clean bath room</td>
+                                        <td class="col-md-3" data-title="Description" th:text="${service.getDescription()}">cleaning your bath room</td>
+                                        <td class="col-md-2" data-title="Price" th:text="${service.getPrice()}">cleaning your bath room</td>
                                         <td>
                                             <a th:href="@{/service/edit/} + ${service.getId()}" class="btn btn-sm btn-primary">Edit</a>
                                             <a href="#" class="btn btn-sm btn-danger"  th:id="${'delete_' + service.getId()}">Delete</a>
