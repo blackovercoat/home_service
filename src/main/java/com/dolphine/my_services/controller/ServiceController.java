@@ -57,7 +57,7 @@ public class ServiceController {
             return "service/service_list";
         ServiceEntity serviceEntity = servicesService.addService(serviceForm);
         try {
-            serviceForm.setImage(commonService.uploadImage(fileUpload,"catalog"+serviceEntity.getId()));
+            serviceForm.setImage(commonService.uploadImage(fileUpload,"service"+serviceEntity.getId()));
         } catch (IOException e) {
             e.printStackTrace();
         }

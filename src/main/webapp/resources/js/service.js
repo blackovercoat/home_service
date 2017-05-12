@@ -16,7 +16,7 @@ function setTitle(service) {
             '<td class="col-md-4">'+value.description+'</td>' +
             '<td class="col-xs-1">'+value.price+'</td>' +
             '<td class="col-sm-3">' +
-            '<a th:href="@{/catalog/edit/} + ${service.getId()}"  class="btn btn-sm btn-primary">Edit</a>'+
+            '<a href="/service/edit/'+value.id+'"  class="btn btn-sm btn-primary">Edit</a>'+
             '<a href="#" class="btn btn-sm btn-danger" onclick="onClickDeleteService('+value.id+',this)" >Delete</a>'+
             '</td>' +
             '</tr>');
