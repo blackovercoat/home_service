@@ -31,7 +31,6 @@
     <script th:src="@{/resources/js/fileinput.min.js}"></script>
     <!-- bootstrap.js below is needed if you wish to zoom and view file content
          in a larger detailed modal dialog -->
-    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- optionally if you need a theme like font awesome theme you can include
         it as mentioned below -->
     <script th:src="@{/resources/js/locales/LANG.js}"></script>
@@ -53,8 +52,23 @@
                     <div class="panel-body">
                         <form class="form-horizontal" th:action="@{/provider/edit}+'?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" th:object="${providerForm}" method="post" enctype="multipart/form-data">
                             <fieldset>
+                                <div th:if="${emailErrorMessage != null}" class="form-group">
+                                    <div class="text-center">
+                                        <h4 class="text-danger" th:text="${emailErrorMessage}">This email already in use!</h4>
+                                    </div>
+                                </div>
+                                <div th:if="${phoneErrorMessage != null}" class="form-group">
+                                    <div class="text-center">
+                                        <h4 class="text-danger" th:text="${phoneErrorMessage}">This phone number already in use!</h4>
+                                    </div>
+                                </div>
+                                <div th:if="${passwordErrorMessage != null}" class="form-group">
+                                    <div class="text-center">
+                                        <h4 class="text-danger" th:text="${passwordErrorMessage}">Password and re-password not match!</h4>
+                                    </div>
+                                </div>
                                 <input id="id" name="id" type="hidden" class="form-control input-md" required="" th:value="${provider.getId()}">
-                                <input id="image" name="image" type="hidden" class="form-control input-md" th:src="${provider.getImage()}">
+                                <input id="image" name="image" type="hidden" class="form-control input-md" th:value="${provider.getImage()}">
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="imageLoad">Old Image:</label>
@@ -70,7 +84,7 @@
                                     </div>
                                     <label class="col-sm-3 control-label" for="name">Name:</label>
                                     <div class="col-sm-9">
-                                        <input id="name" name="name" type="text" class="form-control input-md" required="" th:value="${provider.getName()}">
+                                        <input id="name" name="name" type="text" class="form-control input-md" required="" pattern="[\w\s]+" title="provider name only contain alphabet character" th:value="${provider.getName()}">
                                         <label class="text-danger" id="employeeId"></label>
                                     </div>
                                 </div>
@@ -84,7 +98,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="phoneNumber">Phone Number:</label>
                                     <div class="col-sm-9">
-                                        <input id="phoneNumber" name="phoneNumber" type="text" class="form-control input-md" required="" th:value="${provider.getPhoneNumber()}">
+                                        <input id="phoneNumber" name="phoneNumber" type="number" class="form-control input-md" required="" th:value="${provider.getPhoneNumber()}">
                                         <label class="text-danger" id="approver2"></label>
                                     </div>
                                 </div>
@@ -112,14 +126,14 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="password">New Password:</label>
                                     <div class="col-sm-9">
-                                        <input id="password" name="password" type="password" class="form-control input-md" required="" th:value="${provider.getPassword()}">
+                                        <input id="password" name="password" type="password" class="form-control input-md" required="" pattern="[a-zA-Z0-9]+" title="password only contain alphanumeric character" th:value="${provider.getPassword()}">
                                         <label class="text-danger" id="pas"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="repassword">Re-Password:</label>
                                     <div class="col-sm-9">
-                                        <input id="repassword" name="repassword" type="password" class="form-control input-md" required="" th:value="${provider.getPassword()}">
+                                        <input id="repassword" name="repassword" type="password" class="form-control input-md" required="" pattern="[a-zA-Z0-9]+" title="password only contain alphanumeric character" th:value="${provider.getPassword()}">
                                         <label class="text-danger" id="repas"></label>
                                     </div>
                                 </div>

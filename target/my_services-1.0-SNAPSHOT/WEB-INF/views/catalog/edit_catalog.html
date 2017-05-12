@@ -32,7 +32,6 @@
     <script th:src="@{/resources/js/fileinput.min.js}"></script>
     <!-- bootstrap.js below is needed if you wish to zoom and view file content
          in a larger detailed modal dialog -->
-    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- optionally if you need a theme like font awesome theme you can include
         it as mentioned below -->
     <script th:src="@{/resources/js/locales/LANG.js}"></script>
@@ -41,7 +40,7 @@
 
 <div th:replace="fragments/layout :: header"></div>
 <div class="container page-wrap">
-    <section id="manage_approvers" style="margin-top:90px;">
+    <section id="edit_catalog" style="margin-top:90px;">
 
         <div class="row">
 
@@ -55,7 +54,7 @@
                         <form class="form-horizontal" th:action="@{/catalog/edit}+'?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" th:object="${catalogForm}" method="post" enctype="multipart/form-data">
                             <fieldset>
                                 <input id="id" name="id" type="hidden" class="form-control input-md" th:value="${catalog.getId()}">
-                                <input id="image" name="image" type="hidden" class="form-control input-md" th:src="${catalog.getImage()}">
+                                <input id="image" name="image" type="hidden" class="form-control input-md" th:value="${catalog.getImage()}">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="imageLoad">Old Image:</label>
                                     <div class="col-sm-9">
@@ -72,7 +71,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="name">Name:</label>
                                     <div class="col-sm-9">
-                                        <input id="name" name="name" type="text" placeholder="" class="form-control input-md" required="" th:value="${catalog.getName()}">
+                                        <input id="name" name="name" type="text" placeholder="" class="form-control input-md" required="" pattern="[a-zA-Z0-9\s]+" title="catalog name only contain alphanumeric character" th:value="${catalog.getName()}">
                                         <label class="text-danger" id="employeeId"></label>
                                     </div>
                                 </div>

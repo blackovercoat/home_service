@@ -79,8 +79,15 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="name">Name:</label>
                                     <div class="col-sm-9">
-                                        <input id="name" name ="name" type="text" class="form-control input-md" required="">
+                                        <input id="name" name ="name" type="text" class="form-control input-md" required="" pattern="[a-zA-Z0-9\s]+" title="service name only contain alphanumeric character">
                                         <label class="text-danger" id="employeeId"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="price">Price:</label>
+                                    <div class="col-sm-9">
+                                        <input id="price" name="price" type="number" class="form-control input-md" required="">
+                                        <label class="text-danger" ></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -118,12 +125,14 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Price</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:id="${service.getId()}" th:each="service : ${defaultservice}">
                                         <td data-title="Name" th:text="${service.getName()}">Clean bath room</td>
                                         <td data-title="Description" th:text="${service.getDescription()}">cleaning your bath room</td>
+                                        <td data-title="Price" th:text="${service.getPrice()}">cleaning your bath room</td>
                                         <td>
                                             <a th:href="@{/service/edit/} + ${service.getId()}" class="btn btn-sm btn-primary">Edit</a>
                                             <a href="#" class="btn btn-sm btn-danger"  th:id="${'delete_' + service.getId()}">Delete</a>
