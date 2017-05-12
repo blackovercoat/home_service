@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
@@ -54,9 +55,15 @@ public class CustomerController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String updateProvider(@ModelAttribute("customerForm") CustomerForm customerForm
-            , BindingResult bindingResult){
+            , BindingResult bindingResult,RedirectAttributes redirectAttributes){
 
         if (bindingResult.hasErrors()){
+            if(customerService.getCustomerByEmail(customerForm.getEmail())!=null&&
+                    customerService.getCustomerById(customerForm.getId()).getEmail()!=customerForm.getEmail())
+                redirectAttributes.addFlashAttribute("emailErrorMessage","This email already in use!");
+            else if(customerService.getCustomerByPhoneNumber(customerForm.getPhoneNumber())!=null&&
+                    customerService.getCustomerById(customerForm.getId()).getPhoneNumber()!=customerForm.getPhoneNumber())
+                redirectAttributes.addFlashAttribute("phoneErrorMessage","This phone number already in use!");
             return "redirect:/customer/edit/"+customerForm.getId();
         }
         customerService.setCustomerById(customerForm,customerForm.getId());

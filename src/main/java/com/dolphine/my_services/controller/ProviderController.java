@@ -43,22 +43,23 @@ public class ProviderController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addNewProvider(@RequestParam("fileUpload") MultipartFile fileUpload,@Valid @ModelAttribute("providerForm") ProviderForm providerForm, BindingResult bindingResult
                               , RedirectAttributes redirectAttributes,Model model) throws UnsupportedEncodingException {
-        if (bindingResult.hasErrors())
-            return "provider/add_provider";
-        if(providerService.getProviderByEmail(providerForm.getEmail())!=null)
-            redirectAttributes.addFlashAttribute("emailErrorMessage","This email already in use!");
-        else if(providerService.getProviderByPhoneNumber(providerForm.getPhoneNumber())!=null)
-            redirectAttributes.addFlashAttribute("phoneErrorMessage","This phone number already in use!");
-        else{
-            ProviderEntity providerEntity = providerService.addProvider(providerForm);
-            try {
-                providerForm.setImage(commonService.uploadImage(fileUpload,"provider"+providerEntity.getId()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            providerService.setProviderById(providerForm,providerEntity.getId());
-            redirectAttributes.addFlashAttribute("addProviderSuccessMessage", "Add new provider successful!");
+        if (bindingResult.hasErrors()){
+            if(providerService.getProviderByEmail(providerForm.getEmail())!=null)
+                redirectAttributes.addFlashAttribute("emailErrorMessage","This email already in use!");
+            else if(providerService.getProviderByPhoneNumber(providerForm.getPhoneNumber())!=null)
+                redirectAttributes.addFlashAttribute("phoneErrorMessage","This phone number already in use!");
+            else if(!providerForm.getPassword().equals(providerForm.getRepassword()))
+                redirectAttributes.addFlashAttribute("passwordErrorMessage","Password and re-password not match!");
+            return "redirect:/provider/add";
         }
+        ProviderEntity providerEntity = providerService.addProvider(providerForm);
+        try {
+            providerForm.setImage(commonService.uploadImage(fileUpload,"provider"+providerEntity.getId()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        providerService.setProviderById(providerForm,providerEntity.getId());
+        redirectAttributes.addFlashAttribute("addProviderSuccessMessage", "Add new provider successful!");
 
         return "redirect:/provider/list";
     }
@@ -89,24 +90,24 @@ public class ProviderController {
     public String updateProvider(@RequestParam("fileUpload") MultipartFile fileUpload,@Valid @ModelAttribute("providerForm") ProviderForm providerForm
             , BindingResult bindingResult,RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()){
+            if(providerService.getProviderByEmail(providerForm.getEmail())!=null&&
+                    providerService.getProviderById(providerForm.getId()).getEmail()!=providerForm.getEmail())
+                redirectAttributes.addFlashAttribute("emailErrorMessage","This email already in use!");
+            else if(providerService.getProviderByPhoneNumber(providerForm.getPhoneNumber())!=null&&
+                    providerService.getProviderById(providerForm.getId()).getPhoneNumber()!=providerForm.getPhoneNumber())
+                redirectAttributes.addFlashAttribute("phoneErrorMessage","This phone number already in use!");
+            else if(!providerForm.getPassword().equals(providerForm.getRepassword()))
+                redirectAttributes.addFlashAttribute("passwordErrorMessage","Password and re-password not match!");
             return "redirect:/provider/edit/"+providerForm.getId();
         }
-        if(providerService.getProviderByEmail(providerForm.getEmail())!=null&&
-                providerService.getProviderById(providerForm.getId()).getEmail()!=providerForm.getEmail())
-            redirectAttributes.addFlashAttribute("emailErrorMessage","This email already in use!");
-        else if(providerService.getProviderByPhoneNumber(providerForm.getPhoneNumber())!=null&&
-                providerService.getProviderById(providerForm.getId()).getPhoneNumber()!=providerForm.getPhoneNumber())
-            redirectAttributes.addFlashAttribute("phoneErrorMessage","This phone number already in use!");
-        else{
-            if(fileUpload.getName()!="")
-                try {
-                    commonService.removeImage(providerForm.getImage());
-                    providerForm.setImage(commonService.uploadImage(fileUpload,"provider"+providerForm.getId()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            providerService.setProviderById(providerForm,providerForm.getId());
-        }
+        if(fileUpload.getName()!="")
+            try {
+                commonService.removeImage(providerForm.getImage());
+                providerForm.setImage(commonService.uploadImage(fileUpload,"provider"+providerForm.getId()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        providerService.setProviderById(providerForm,providerForm.getId());
         return "redirect:/provider/list";
     }
 }
