@@ -251,6 +251,13 @@ public class WebServiceRestController {
         return new ResponseEntity<Integer>(providerServiceService.setProviderServiceById(providerServiceEntity,providerServiceId), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "providerService/delete",method = RequestMethod.GET)
+    public ResponseEntity<Integer> removeProviderService(@RequestParam(name = "providerServiceId") int providerServiceId) throws CustomException {
+        if(providerServiceService.getProviderServiceById(providerServiceId)==null)
+            throw new CustomException("providerServiceId is not valid!");
+        return new ResponseEntity<Integer>(providerServiceService.removeProviderServicebyProviderServiceId(providerServiceId), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/bookingHistory", method = RequestMethod.GET)
     public List<BookingHistory> getBookingHistory(@RequestParam(name = "customerId") int customerId) {
         return bookingService.getBookingHistorybyCustomerId(customerId);

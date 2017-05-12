@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="fix_constraint" author="bnguyen">
+        <dropForeignKeyConstraint baseTableName="account_role" constraintName="fk_account_role_account_id"/>
+        <addForeignKeyConstraint baseColumnNames="account_id"
+                                 baseTableName="account_role"
+                                 constraintName="fk_account_role_account_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="account"/>
+        <dropForeignKeyConstraint baseTableName="account_role" constraintName="fk_account_role_role_id"/>
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="account_role"
+                                 constraintName="fk_account_role_role_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="role"/>
+
+        <dropForeignKeyConstraint baseTableName="booking" constraintName="fk_booking_customer_id"/>
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="booking"
+                                 constraintName="fk_booking_customer_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+        <dropForeignKeyConstraint baseTableName="booking" constraintName="fk_booking_provider_service_id"/>
+        <addForeignKeyConstraint baseColumnNames="provider_service_id"
+                                 baseTableName="booking"
+                                 constraintName="fk_booking_provider_service_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="provider_service"/>
+
+        <dropForeignKeyConstraint baseTableName="booking_detail" constraintName="fk_booking_detail_booking_id"/>
+        <addForeignKeyConstraint baseColumnNames="booking_id"
+                                 baseTableName="booking_detail"
+                                 constraintName="fk_booking_detail_booking_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="booking"/>
+        <dropForeignKeyConstraint baseTableName="booking_detail" constraintName="fk_booking_detail_staff_id"/>
+        <addForeignKeyConstraint baseColumnNames="staff_id"
+                                 baseTableName="booking_detail"
+                                 constraintName="fk_booking_detail_staff_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="staff"/>
+
+        <dropForeignKeyConstraint baseTableName="provider_service" constraintName="fk_provider_service_provider_id"/>
+        <addForeignKeyConstraint baseColumnNames="provider_id"
+                                 baseTableName="provider_service"
+                                 constraintName="fk_provider_service_provider_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="provider"/>
+        <dropForeignKeyConstraint baseTableName="provider_service" constraintName="fk_provider_service_service_id"/>
+        <addForeignKeyConstraint baseColumnNames="service_id"
+                                 baseTableName="provider_service"
+                                 constraintName="fk_provider_service_service_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="service"/>
+
+        <dropForeignKeyConstraint baseTableName="rating" constraintName="fk_rating_customer_id"/>
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="rating"
+                                 constraintName="fk_rating_customer_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+        <dropForeignKeyConstraint baseTableName="rating" constraintName="fk_rating_provider_service_id"/>
+        <addForeignKeyConstraint baseColumnNames="provider_service_id"
+                                 baseTableName="rating"
+                                 constraintName="fk_rating_provider_service_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="provider_service"/>
+
+        <dropForeignKeyConstraint baseTableName="service" constraintName="fk_service_catalog_id"/>
+        <addForeignKeyConstraint baseColumnNames="catalog_id"
+                                 baseTableName="service"
+                                 constraintName="fk_service_catalog_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="catalog"/>
+
+        <dropForeignKeyConstraint baseTableName="staff" constraintName="fk_staff_provider_id"/>
+        <addForeignKeyConstraint baseColumnNames="provider_id"
+                                 baseTableName="staff"
+                                 constraintName="fk_staff_provider_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="provider"/>
+    </changeSet>
+</databaseChangeLog>

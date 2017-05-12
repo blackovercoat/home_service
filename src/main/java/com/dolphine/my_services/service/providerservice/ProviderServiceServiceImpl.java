@@ -92,6 +92,12 @@ public class ProviderServiceServiceImpl implements ProviderServiceService{
                 ,providerServiceEntity.getToTime());
     }
 
+    @Transactional
+    @Override
+    public int removeProviderServicebyProviderServiceId(int providerServiceId) {
+        return providerServiceRepository.deleteById(providerServiceId);
+    }
+
     private List<ProviderServiceWebService> convertListServiceEntityToDTO(List<ProviderServiceEntity> providerServiceEntities){
         List<ProviderServiceWebService> providerServiceWebServiceList = new ArrayList<>();
         for(ProviderServiceEntity providerServiceEntity : providerServiceEntities){

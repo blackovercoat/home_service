@@ -23,6 +23,8 @@ public interface ProviderServiceRepository extends JpaRepository<ProviderService
     List<ProviderServiceEntity> findByProvider_Id(int providerId);
     List<ProviderServiceEntity> findByService_Id(int serviceId);
 
+    int deleteById(int id);
+
     @Modifying
     @Transactional
     @Query("update ProviderServiceEntity set " +
