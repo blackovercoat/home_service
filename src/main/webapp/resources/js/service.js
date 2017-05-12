@@ -1,5 +1,10 @@
 var services;
 
+$(function () {
+    var catalogId = document.getElementById('catalogId').value;
+    getServices(catalogId);
+});
+
 function setTitle(service) {
     var name = document.getElementById('catalogId').options[document.getElementById('catalogId').selectedIndex].text
     document.getElementById("service-title").textContent = name;
@@ -7,12 +12,12 @@ function setTitle(service) {
 
     $.each(service, function (key, value) {
         $('#serviceTable').append('<tr th:id="'+value.id+'">' +
-            '<td >'+value.name+'</td>' +
-            '<td>'+value.description+'</td>' +
-            '<td>'+value.price+'</td>' +
-            '<td>' +
-            '<a th:href="@{/catalog/edit/} + ${service.getId()}"  class="btn btn-md btn-primary">Edit</a>'+
-            '<a href="#" class="btn btn-md btn-danger" onclick="onClickDeleteService('+value.id+',this)" >Delete</a>'+
+            '<td class="col-md-2">'+value.name+'</td>' +
+            '<td class="col-md-4">'+value.description+'</td>' +
+            '<td class="col-xs-1">'+value.price+'</td>' +
+            '<td class="col-sm-3">' +
+            '<a th:href="@{/catalog/edit/} + ${service.getId()}"  class="btn btn-sm btn-primary">Edit</a>'+
+            '<a href="#" class="btn btn-sm btn-danger" onclick="onClickDeleteService('+value.id+',this)" >Delete</a>'+
             '</td>' +
             '</tr>');
     });
