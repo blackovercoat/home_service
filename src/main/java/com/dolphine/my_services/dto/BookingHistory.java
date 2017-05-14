@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by PC on 4/19/2017.
@@ -20,8 +21,10 @@ public class BookingHistory {
     private String description;
     private ServiceWebService services;
     private Provider provider;
+    private List<Staff> staffs;
+    private List<Rating> ratings;
 
-    public BookingHistory(int id, int customerId, int providerServiceId, Date bookingDate, Date workingDate, int status, String description, ServiceWebService services, Provider provider) {
+    public BookingHistory(int id, int customerId, int providerServiceId, Date bookingDate, Date workingDate, int status, String description, ServiceWebService services, Provider provider,List<Staff> staffs,List<Rating> ratings) {
         this.id = id;
         this.customerId = customerId;
         this.providerServiceId = providerServiceId;
@@ -31,5 +34,7 @@ public class BookingHistory {
         this.description = description;
         this.services = services;
         this.provider = provider;
+        this.staffs = staffs;
+        this.ratings = ratings;
     }
 }

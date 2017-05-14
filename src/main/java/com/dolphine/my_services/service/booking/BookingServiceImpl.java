@@ -4,6 +4,7 @@ import com.dolphine.my_services.dto.*;
 import com.dolphine.my_services.model.*;
 import com.dolphine.my_services.repository.BookingRepository;
 import com.dolphine.my_services.repository.ProviderServiceRepository;
+import com.dolphine.my_services.repository.RatingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,12 @@ public class BookingServiceImpl implements BookingService{
 
     final private BookingRepository bookingRepository;
     final private ProviderServiceRepository providerServiceRepository;
+    final private RatingRepository ratingRepository;
 
-    public BookingServiceImpl(BookingRepository bookingRepository, ProviderServiceRepository providerServiceRepository) {
+    public BookingServiceImpl(BookingRepository bookingRepository, ProviderServiceRepository providerServiceRepository, RatingRepository ratingRepository) {
         this.bookingRepository = bookingRepository;
         this.providerServiceRepository = providerServiceRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     @Transactional
@@ -45,6 +48,32 @@ public class BookingServiceImpl implements BookingService{
                     ,bookingEntity.getProviderServices().getProvider().getLongitude()
                     ,bookingEntity.getProviderServices().getProvider().getLatitude()
                     ,bookingEntity.getProviderServices().getProvider().getImage());
+            List<Rating> ratings = new ArrayList<>();
+            List<Staff> staffs = new ArrayList<>();
+            List<StaffEntity> staffEntities = bookingEntity.getStaffs();
+            List<RatingEntity> ratingEntities = providerServiceRepository.getOne(bookingEntity.getProviderServices().getId()).getRatings();
+            for(StaffEntity staffEntity: staffEntities)
+                staffs.add(new Staff(staffEntity.getId()
+                        ,staffEntity.getName()
+                        ,staffEntity.getPhoneNumber()
+                        ,provider));
+            for(RatingEntity ratingEntity : ratingEntities){
+                Customer customer = new Customer(ratingEntity.getCustomer().getId()
+                        ,ratingEntity.getCustomer().getName()
+                        ,ratingEntity.getCustomer().getEmail()
+                        ,ratingEntity.getCustomer().getPassword()
+                        ,ratingEntity.getCustomer().getPhoneNumber()
+                        ,ratingEntity.getCustomer().getAddress()
+                        ,ratingEntity.getCustomer().getLongitude()
+                        ,ratingEntity.getCustomer().getLatitude());
+                ratings.add(new Rating(ratingEntity.getId()
+                        ,customer
+                        ,ratingEntity.getContent()
+                        ,ratingEntity.getScore()
+                        ,ratingEntity.getTitle()
+                        ,ratingEntity.getRatingDate()
+                        ,ratingEntity.getProviderServices().getId()));
+            }
             bookingHistories.add(new BookingHistory(bookingEntity.getId()
                     ,bookingEntity.getCustomer().getId()
                     ,bookingEntity.getProviderServices().getId()
@@ -53,7 +82,9 @@ public class BookingServiceImpl implements BookingService{
                     ,bookingEntity.getStatus()
                     ,bookingEntity.getDescription()
                     ,services
-                    ,provider));
+                    ,provider
+                    ,staffs
+                    ,ratings));
         }
         return bookingHistories;
     }

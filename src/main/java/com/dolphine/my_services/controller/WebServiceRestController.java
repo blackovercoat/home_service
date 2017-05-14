@@ -5,17 +5,20 @@ import com.dolphine.my_services.model.*;
 import com.dolphine.my_services.service.booking.BookingService;
 import com.dolphine.my_services.service.booking_detail.BookingDetailService;
 import com.dolphine.my_services.service.catalog.CatalogService;
+import com.dolphine.my_services.service.common.CommonService;
 import com.dolphine.my_services.service.customer.CustomerService;
 import com.dolphine.my_services.service.provider.ProviderService;
 import com.dolphine.my_services.service.providerservice.ProviderServiceService;
 import com.dolphine.my_services.service.rating.RatingService;
 import com.dolphine.my_services.service.services.ServicesService;
 import com.dolphine.my_services.service.staff.StaffService;
+import org.codehaus.jettison.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class WebServiceRestController {
+
     @Autowired
     private final CatalogService catalogService;
     private final ProviderService providerService;
@@ -35,8 +39,9 @@ public class WebServiceRestController {
     private final StaffService staffService;
     private final ServicesService servicesService;
     private final BookingDetailService bookingDetailService;
+    private final CommonService commonService;
 
-    public WebServiceRestController(CatalogService catalogService, ProviderService providerService, CustomerService customerService, ProviderServiceService providerServiceService, BookingService bookingService, RatingService ratingService, StaffService staffService, ServicesService servicesService, BookingDetailService bookingDetailService) {
+    public WebServiceRestController(CatalogService catalogService, ProviderService providerService, CustomerService customerService, ProviderServiceService providerServiceService, BookingService bookingService, RatingService ratingService, StaffService staffService, ServicesService servicesService, BookingDetailService bookingDetailService, CommonService commonService) {
         this.catalogService = catalogService;
         this.providerService = providerService;
         this.customerService = customerService;
@@ -46,6 +51,7 @@ public class WebServiceRestController {
         this.staffService = staffService;
         this.servicesService = servicesService;
         this.bookingDetailService = bookingDetailService;
+        this.commonService = commonService;
     }
 
     @RequestMapping(value = "customer/login", method = RequestMethod.GET)
@@ -403,6 +409,12 @@ public class WebServiceRestController {
         catalogEntity.setDescription(description);
         catalogEntity.setImage(image);
         return new ResponseEntity<Catalog>(catalogService.addCatalogWebService(catalogEntity), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/notification/send", method = RequestMethod.GET)
+    public String sendNotification(@RequestParam(name = "providerId") int providerId) throws IOException, JSONException {
+        commonService.sendNotification();
+        return providerId+"";
     }
 
 
