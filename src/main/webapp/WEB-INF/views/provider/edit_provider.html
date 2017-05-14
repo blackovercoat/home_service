@@ -84,7 +84,8 @@
                                     </div>
                                     <label class="col-sm-3 control-label" for="name">Name:</label>
                                     <div class="col-sm-9">
-                                        <input id="name" name="name" type="text" class="form-control input-md" required="" title="provider name only contain alphabet character" th:value="${provider.getName()}">
+                                        <input id="name" name="name" type="text" class="form-control input-md" required=""
+                                               pattern="[a-zA-Záàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờỡởợùúũủụưứừựữửýỳỷỹỵ\s]+" title="provider name only contain alphabet character" th:value="${provider.getName()}">
                                         <label class="text-danger" id="employeeId"></label>
                                     </div>
                                 </div>

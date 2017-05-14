@@ -25,11 +25,11 @@
     <section id="report" style="margin-top:90px;">
 
         <div class="container">
-            <div class="form-inline" >
+            <div class="form-inline">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="provider">Provider:</label>
-                    <div class="col-sm-6">
-                        <select id="provider" onchange="getReport(this.value,document.getElementById('month').value)">
+                    <label class="col-sm-2 control-label" for="provider1">Provider:</label>
+                    <div id="provider1" class="col-sm-4">
+                        <select id="provider" onchange="getReport(this.value,document.getElementById('month').value)" style="width: 400px !important; min-width: 400px; max-width: 400px;">
                             <option value="0">All</option>
                             <option th:each="provider : ${providerList}"
                                     th:value="${provider.getId()}"
@@ -39,9 +39,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="month">Month:</label>
-                    <div class="col-sm-6">
-                        <select id="month" onchange="getReport(document.getElementById('provider').value,this.value)">
+                    <label class="col-sm-4 control-label" for="month1">Month:</label>
+                    <div id="month1" class="col-sm-4">
+                        <select id="month" onchange="getReport(this.value,document.getElementById('month').value)" style="width: 100px !important; min-width: 100px; max-width: 100px;">
                             <option value="0">All</option>
                             <option value="1">January</option>
                             <option value="2">February</option>

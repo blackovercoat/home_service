@@ -7,7 +7,7 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Services</title>
+    <title>Edit Service</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/webjars/bootswatch-paper/3.3.5+4/css/bootstrap.css"
@@ -78,7 +78,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="name">Name:</label>
                                     <div class="col-sm-9">
-                                        <input id="name" name ="name" type="text" class="form-control input-md" required="" title="service name only contain alphanumeric character">
+                                        <input id="name" name ="name" type="text" class="form-control input-md" required=""
+                                               pattern="[a-zA-Záàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờỡởợùúũủụưứừựữửýỳỷỹỵ\s]+" title="service name only contain alphanumeric character">
                                         <label class="text-danger" id="employeeId"></label>
                                     </div>
                                 </div>

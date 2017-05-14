@@ -1,5 +1,6 @@
 package com.dolphine.my_services.service.common;
 
+import com.dolphine.my_services.dto.ResponseMessage;
 import org.codehaus.jettison.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,5 +16,5 @@ public interface CommonService {
 
     String uploadImage(MultipartFile file, String id) throws IOException;
     void removeImage(String img);
-    void sendNotification() throws IOException, JSONException;
+    ResponseMessage sendNotification(String title, String message, String clientToken) throws IOException, JSONException;
 }

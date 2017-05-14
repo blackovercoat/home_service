@@ -69,14 +69,14 @@
                     </button>
                     <ul class="dropdown-menu" role="menu" id="list-language">
                         <li th:if="__${#locale}__!='vi'">
-                            <a id="changeLanguageVI" th:href="@{/changeLanguage(language='vi')}">
+                            <a id="changeLanguageVI" th:href="#">
                                 <img class="flag" src="../../../resources/images/vn.svg"
                                      th:src="@{/resources/images/vn.svg}"/>
                                 <span class="language-name"> VN</span>
                             </a>
                         </li>
                         <li th:if="__${#locale}__!='en'">
-                            <a id="changeLanguageEN" th:href="@{/changeLanguage(language='en')}">
+                            <a id="changeLanguageEN" th:href="#">
                                 <img class="flag" src="../../../resources/images/us.svg"
                                      th:src="@{/resources/images/us.svg}"/>
                                 <span class="language-name"> EN</span>

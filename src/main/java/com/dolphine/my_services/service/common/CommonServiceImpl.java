@@ -1,5 +1,6 @@
 package com.dolphine.my_services.service.common;
 
+import com.dolphine.my_services.dto.ResponseMessage;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -64,25 +65,29 @@ public class CommonServiceImpl implements CommonService{
     }
 
     @Override
-    public void sendNotification() throws IOException, JSONException {
+    public ResponseMessage sendNotification(String title, String message, String clientToken) throws IOException, JSONException {
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost("https://fcm.googleapis.com/fcm/send");
         post.setHeader("Content-type", "application/json");
         post.setHeader("Authorization", "key=AIzaSyA2KkUUvShs5XVrwBxEvE8zqOptu7PmyZ8");
 
-        JSONObject message = new JSONObject();
-        message.put("to", "dnl4LQa6rno:APA91bGAuQhUPsXDGinBS7oUKQhCNS-DybEyO0RwXiVy1mxWYE_PNAOuDvHn1sPI5hamL-EL0dYeFU8FWEcyPidkXEnQZrVMKjLWXHpg5eaf2r5RiRRy1zrPXs6lbDvUwCEmDZauWsJV");
-        message.put("priority", "high");
+        JSONObject jsonMessage = new JSONObject();
+        jsonMessage.put("to", clientToken);
+        jsonMessage.put("priority", "high");
 
         JSONObject notification = new JSONObject();
-        notification.put("title", "Java");
-        notification.put("body", "Notificação do Java");
+        notification.put("title", title);
+        notification.put("body", message);
 
-        message.put("notification", notification);
+        jsonMessage.put("notification", notification);
 
-        post.setEntity(new StringEntity(message.toString(), "UTF-8"));
+        post.setEntity(new StringEntity(jsonMessage.toString(), "UTF-8"));
         HttpResponse response = client.execute(post);
         System.out.println(response);
-        System.out.println(message);
+        System.out.println(jsonMessage);
+        ResponseMessage responseMessage = new ResponseMessage();
+        responseMessage.setResponse(response+"");
+        responseMessage.setMessage(jsonMessage+"");
+        return responseMessage;
     }
 }

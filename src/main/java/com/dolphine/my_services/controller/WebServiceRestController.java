@@ -412,9 +412,10 @@ public class WebServiceRestController {
     }
 
     @RequestMapping(value = "/notification/send", method = RequestMethod.GET)
-    public String sendNotification(@RequestParam(name = "providerId") int providerId) throws IOException, JSONException {
-        commonService.sendNotification();
-        return providerId+"";
+    public ResponseMessage sendNotification(@RequestParam(name = "title") String title,
+                                   @RequestParam(name = "message") String message,
+                                   @RequestParam(name = "clientToken") String clientToken) throws IOException, JSONException {
+        return commonService.sendNotification(title,message,clientToken);
     }
 
 

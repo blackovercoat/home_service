@@ -6,9 +6,9 @@ $(function () {
     var month = document.getElementById('month').value;
     getReport(providerId,month);
 });
-function sort() {
+function sort(tableId) {
     var table, rows, switching, i, x, y, shouldSwitch;
-    table = document.getElementById("reportTable");
+    table = document.getElementById(tableId);
     switching = true;
     while (switching) {
         switching = false;
@@ -117,6 +117,7 @@ function loadTableReport(reportStatistic) {
                 '</div>'
             );
             document.getElementById("total"+value.id).textContent = total+' $';
+            sort("reportTable"+value.id);
         });
     }
     else{
@@ -158,6 +159,7 @@ function loadTableReport(reportStatistic) {
             '</div>'
         );
         document.getElementById("total").textContent = total+' $';
+        sort("reportTable");
     }
 }
 
