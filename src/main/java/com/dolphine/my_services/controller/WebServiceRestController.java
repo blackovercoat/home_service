@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -279,9 +280,9 @@ public class WebServiceRestController {
 
     @RequestMapping(value = "/rating", method = RequestMethod.GET)
     public ResponseEntity<ServiceRating> getRating(@RequestParam(name = "providerServiceId") int providerServiceId) throws CustomException {
-        ServiceRating serviceRating = ratingService.getServiceRatingandServiceByProviderServiceId(providerServiceId);
-        if(serviceRating==null)
+        if(providerServiceService.getProviderServiceById(providerServiceId)==null)
             throw new CustomException("providerServiceId is not valid!");
+        ServiceRating serviceRating = ratingService.getServiceRatingandServiceByProviderServiceId(providerServiceId);
         return new ResponseEntity<ServiceRating>(serviceRating, HttpStatus.OK);
     }
 
@@ -323,16 +324,19 @@ public class WebServiceRestController {
         bookingEntity.setWorkingDate(workingDate);
         bookingEntity.setDescription(description);
         bookingEntity.setStatus(0);
+        String message = "Bạn vừa nhận được 1 booking dịch vụ "
+                +providerServiceService.getProviderServiceById(providerServiceId).getService().getName()
+                +" từ khách hàng "+customerService.getCustomerById(customerId).getName();
         commonService.sendNotification(
-                "title"
-                ,"message"
+                "Booking mới"
+                ,message
                 ,providerServiceService.getProviderServiceById(providerServiceId).getProvider().getRegToken());
-        CustomerNotificationEntity customerNotificationEntity = new CustomerNotificationEntity();
-        customerNotificationEntity.setContent("message");
-        customerNotificationEntity.setCustomer(customerService.getCustomerById(customerId));
+        ProviderNotificationEntity providerNotificationEntity = new ProviderNotificationEntity();
+        providerNotificationEntity.setContent(message);
+        providerNotificationEntity.setProvider(providerServiceService.getProviderServiceById(providerServiceId).getProvider());
         Date currentDate = Calendar.getInstance().getTime();
-        customerNotificationEntity.setSendDate(currentDate);
-        customerNotificationService.saveCustomerNotification(customerNotificationEntity);
+        providerNotificationEntity.setSendDate(currentDate);
+        providerNotificationService.saveProviderNotification(providerNotificationEntity);
         return new ResponseEntity<Booking>(bookingService.saveBooking(bookingEntity), HttpStatus.OK);
     }
 
@@ -341,16 +345,55 @@ public class WebServiceRestController {
             ,@RequestParam(name = "status") int status) throws CustomException, IOException, JSONException {
         if(bookingService.getBookingById(bookingId)==null)
             throw new CustomException("bookingId is not valid!");
-        commonService.sendNotification(
-                "title"
-                ,"message"
-                ,bookingService.getBookingById(bookingId).getCustomer().getRegToken());
-        ProviderNotificationEntity providerNotificationEntity = new ProviderNotificationEntity();
-        providerNotificationEntity.setContent("message");
-        providerNotificationEntity.setProvider(bookingService.getBookingById(bookingId).getProviderServices().getProvider());
-        Date currentDate = Calendar.getInstance().getTime();
-        providerNotificationEntity.setSendDate(currentDate);
-        providerNotificationService.saveProviderNotification(providerNotificationEntity);
+        String title="";
+        String message="";
+        String token="";
+        Date dateFromUnixTime = bookingService.getBookingById(bookingId).getWorkingDate();
+        SimpleDateFormat sdfDate = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+        sdfDate.format(dateFromUnixTime);
+        if(status==1){
+            title = "Dịch vụ được chấp nhập";
+            message = "Dịch vụ "
+                    + bookingService.getBookingById(bookingId).getProviderServices().getService()
+                    +" đã được chấp nhận! dịch vụ sẽ được tiến hành vào lúc "
+                    +sdfDate.format(dateFromUnixTime);
+            token = bookingService.getBookingById(bookingId).getCustomer().getRegToken();
+            commonService.sendNotification(title,message,token);
+            CustomerNotificationEntity customerNotificationEntity = new CustomerNotificationEntity();
+            customerNotificationEntity.setContent(message);
+            customerNotificationEntity.setCustomer(bookingService.getBookingById(bookingId).getCustomer());
+            Date currentDate = Calendar.getInstance().getTime();
+            customerNotificationEntity.setSendDate(currentDate);
+            customerNotificationService.saveCustomerNotification(customerNotificationEntity);
+        }
+        if(status==2){
+            title = "Dịch vụ bị từ chối";
+            message = "Dịch vụ "
+                    + bookingService.getBookingById(bookingId).getProviderServices().getService()
+                    +" đã bị từ chối!";
+            token = bookingService.getBookingById(bookingId).getCustomer().getRegToken();
+            commonService.sendNotification(title,message,token);
+            CustomerNotificationEntity customerNotificationEntity = new CustomerNotificationEntity();
+            customerNotificationEntity.setContent(message);
+            customerNotificationEntity.setCustomer(bookingService.getBookingById(bookingId).getCustomer());
+            Date currentDate = Calendar.getInstance().getTime();
+            customerNotificationEntity.setSendDate(currentDate);
+            customerNotificationService.saveCustomerNotification(customerNotificationEntity);
+        }
+        if(status==3){
+            title = "Dịch vụ bị hủy bởi người dùng!";
+            message = "Dịch vụ "
+                    + bookingService.getBookingById(bookingId).getProviderServices().getService()
+                    +" đã bị hủy!";
+            token = bookingService.getBookingById(bookingId).getProviderServices().getProvider().getRegToken();
+            commonService.sendNotification(title,message,token);
+            ProviderNotificationEntity providerNotificationEntity = new ProviderNotificationEntity();
+            providerNotificationEntity.setContent(message);
+            providerNotificationEntity.setProvider(bookingService.getBookingById(bookingId).getProviderServices().getProvider());
+            Date currentDate = Calendar.getInstance().getTime();
+            providerNotificationEntity.setSendDate(currentDate);
+            providerNotificationService.saveProviderNotification(providerNotificationEntity);
+        }
         return new ResponseEntity<Integer>(bookingService.setBookingStatusById(bookingId,status), HttpStatus.OK);
     }
 
