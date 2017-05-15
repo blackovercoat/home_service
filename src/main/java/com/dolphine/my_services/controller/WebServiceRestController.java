@@ -110,6 +110,20 @@ public class WebServiceRestController {
         return new ResponseEntity<Integer>(customerService.setCustomerById(customerEntity,customerId), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/customer/notification",method = RequestMethod.GET)
+    public ResponseEntity<List<CustomerNotification>> listCustomerNotification(@RequestParam(name = "customerId") int customerId) throws CustomException {
+        if(customerService.getCustomerById(customerId)==null)
+            throw new CustomException("customerId is not valid!");
+        return new ResponseEntity<List<CustomerNotification>>(customerNotificationService.getCustomerNotificationByCustomerId(customerId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/provider/notification",method = RequestMethod.GET)
+    public ResponseEntity<List<ProviderNotification>> listProviderNotification(@RequestParam(name = "providerId") int providerId) throws CustomException {
+        if(providerService.getProviderById(providerId)==null)
+            throw new CustomException("providerId is not valid!");
+        return new ResponseEntity<List<ProviderNotification>>(providerNotificationService.getProviderNotificationByProviderId(providerId), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "provider/login", method = RequestMethod.GET)
     public ResponseEntity<Provider> getProviderInfo(@RequestParam(name = "email") String email,
                                                     @RequestParam(name = "password") String password,

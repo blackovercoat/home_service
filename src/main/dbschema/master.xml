@@ -63,5 +63,6 @@
     <include file="src/main/dbschema/R2.2/add_key_columns_for_provider_customer.xml" />
     <include file="src/main/dbschema/R2.2/create_table_customer_notification.xml" />
     <include file="src/main/dbschema/R2.2/create_table_provider_notification.xml" />
+    <include file="src/main/dbschema/R2.2/change_provider_name_varchar_length.xml" />
 
 </databaseChangeLog>

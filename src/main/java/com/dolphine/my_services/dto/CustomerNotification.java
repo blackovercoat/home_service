@@ -7,19 +7,19 @@ import java.util.Date;
 
 @Data
 @ToString
-public class ProviderNoti {
+public class CustomerNotification {
     private int id;
     private String content;
     private Date sendDate;
-    private int providerId;
+    private Customer customer;
 
-    public ProviderNoti(int id, String content, Date sendDate, int providerId) {
+    public CustomerNotification(int id, String content, Date sendDate, Customer customer) {
         this.id = id;
         this.content = content;
         this.sendDate = sendDate;
-        this.providerId = providerId;
+        this.customer = customer;
     }
 
-    public ProviderNoti() {
+    public CustomerNotification() {
     }
 }

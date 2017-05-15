@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CustomerNotificationRepository extends JpaRepository<CustomerNotificationEntity,Integer> {
-
+    List<CustomerNotificationEntity> findByCustomer_Id(int customerId);
 }
