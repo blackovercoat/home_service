@@ -354,7 +354,7 @@ public class WebServiceRestController {
         if(status==1){
             title = "Dịch vụ được chấp nhập";
             message = "Dịch vụ "
-                    + bookingService.getBookingById(bookingId).getProviderServices().getService()
+                    + bookingService.getBookingById(bookingId).getProviderServices().getService().getName()
                     +" đã được chấp nhận! dịch vụ sẽ được tiến hành vào lúc "
                     +sdfDate.format(dateFromUnixTime);
             token = bookingService.getBookingById(bookingId).getCustomer().getRegToken();
@@ -369,7 +369,7 @@ public class WebServiceRestController {
         if(status==2){
             title = "Dịch vụ bị từ chối";
             message = "Dịch vụ "
-                    + bookingService.getBookingById(bookingId).getProviderServices().getService()
+                    + bookingService.getBookingById(bookingId).getProviderServices().getService().getName()
                     +" đã bị từ chối!";
             token = bookingService.getBookingById(bookingId).getCustomer().getRegToken();
             commonService.sendNotification(title,message,token);
@@ -383,7 +383,7 @@ public class WebServiceRestController {
         if(status==3){
             title = "Dịch vụ bị hủy bởi người dùng!";
             message = "Dịch vụ "
-                    + bookingService.getBookingById(bookingId).getProviderServices().getService()
+                    + bookingService.getBookingById(bookingId).getProviderServices().getService().getName()
                     +" đã bị hủy!";
             token = bookingService.getBookingById(bookingId).getProviderServices().getProvider().getRegToken();
             commonService.sendNotification(title,message,token);
