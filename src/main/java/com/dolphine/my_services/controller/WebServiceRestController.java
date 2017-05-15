@@ -7,7 +7,9 @@ import com.dolphine.my_services.service.booking_detail.BookingDetailService;
 import com.dolphine.my_services.service.catalog.CatalogService;
 import com.dolphine.my_services.service.common.CommonService;
 import com.dolphine.my_services.service.customer.CustomerService;
+import com.dolphine.my_services.service.customernotification.CustomerNotificationService;
 import com.dolphine.my_services.service.provider.ProviderService;
+import com.dolphine.my_services.service.providernotification.ProviderNotificationService;
 import com.dolphine.my_services.service.providerservice.ProviderServiceService;
 import com.dolphine.my_services.service.rating.RatingService;
 import com.dolphine.my_services.service.services.ServicesService;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,8 +43,10 @@ public class WebServiceRestController {
     private final ServicesService servicesService;
     private final BookingDetailService bookingDetailService;
     private final CommonService commonService;
+    private final CustomerNotificationService customerNotificationService;
+    private final ProviderNotificationService providerNotificationService;
 
-    public WebServiceRestController(CatalogService catalogService, ProviderService providerService, CustomerService customerService, ProviderServiceService providerServiceService, BookingService bookingService, RatingService ratingService, StaffService staffService, ServicesService servicesService, BookingDetailService bookingDetailService, CommonService commonService) {
+    public WebServiceRestController(CatalogService catalogService, ProviderService providerService, CustomerService customerService, ProviderServiceService providerServiceService, BookingService bookingService, RatingService ratingService, StaffService staffService, ServicesService servicesService, BookingDetailService bookingDetailService, CommonService commonService, CustomerNotificationService customerNotificationService, ProviderNotificationService providerNotificationService) {
         this.catalogService = catalogService;
         this.providerService = providerService;
         this.customerService = customerService;
@@ -52,6 +57,8 @@ public class WebServiceRestController {
         this.servicesService = servicesService;
         this.bookingDetailService = bookingDetailService;
         this.commonService = commonService;
+        this.customerNotificationService = customerNotificationService;
+        this.providerNotificationService = providerNotificationService;
     }
 
     @RequestMapping(value = "customer/login", method = RequestMethod.GET)
@@ -304,7 +311,7 @@ public class WebServiceRestController {
                                                    @RequestParam(name = "providerServiceId") int providerServiceId,
                                                    @RequestParam(name = "bookingDate") Date bookingDate,
                                                    @RequestParam(name = "workingDate") Date workingDate,
-                                                   @RequestParam(name = "description") String description) throws CustomException {
+                                                   @RequestParam(name = "description") String description) throws CustomException, IOException, JSONException {
         if(customerService.getCustomerById(customerId)==null)
             throw new CustomException("customerId not found!");
         if(providerServiceService.getProviderServiceById(providerServiceId)==null)
@@ -316,14 +323,34 @@ public class WebServiceRestController {
         bookingEntity.setWorkingDate(workingDate);
         bookingEntity.setDescription(description);
         bookingEntity.setStatus(0);
+        commonService.sendNotification(
+                "title"
+                ,"message"
+                ,providerServiceService.getProviderServiceById(providerServiceId).getProvider().getRegToken());
+        CustomerNotificationEntity customerNotificationEntity = new CustomerNotificationEntity();
+        customerNotificationEntity.setContent("message");
+        customerNotificationEntity.setCustomer(customerService.getCustomerById(customerId));
+        Date currentDate = Calendar.getInstance().getTime();
+        customerNotificationEntity.setSendDate(currentDate);
+        customerNotificationService.saveCustomerNotification(customerNotificationEntity);
         return new ResponseEntity<Booking>(bookingService.saveBooking(bookingEntity), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/booking/status",method = RequestMethod.GET)
     public ResponseEntity<Integer> changeBookingStatus(@RequestParam(name = "bookingId") int bookingId
-            ,@RequestParam(name = "status") int status) throws CustomException {
+            ,@RequestParam(name = "status") int status) throws CustomException, IOException, JSONException {
         if(bookingService.getBookingById(bookingId)==null)
             throw new CustomException("bookingId is not valid!");
+        commonService.sendNotification(
+                "title"
+                ,"message"
+                ,bookingService.getBookingById(bookingId).getCustomer().getRegToken());
+        ProviderNotificationEntity providerNotificationEntity = new ProviderNotificationEntity();
+        providerNotificationEntity.setContent("message");
+        providerNotificationEntity.setProvider(bookingService.getBookingById(bookingId).getProviderServices().getProvider());
+        Date currentDate = Calendar.getInstance().getTime();
+        providerNotificationEntity.setSendDate(currentDate);
+        providerNotificationService.saveProviderNotification(providerNotificationEntity);
         return new ResponseEntity<Integer>(bookingService.setBookingStatusById(bookingId,status), HttpStatus.OK);
     }
 
