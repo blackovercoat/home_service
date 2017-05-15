@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="create_provider_notification" author="bnguyen">
+        <createTable tableName="provider_notification">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false"
+                             primaryKeyName="pk_provider_notification_id"
+                             primaryKey="true"/>
+            </column>
+            <column name="provider_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="content" type="varchar(255)">
+            </column>
+            <column name="send_date" type="Datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="provider_id"
+                                 baseTableName="provider_notification"
+                                 constraintName="fk_provider_notification_provider_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="provider"/>
+    </changeSet>
+</databaseChangeLog>

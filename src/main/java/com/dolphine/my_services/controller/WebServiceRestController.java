@@ -56,7 +56,8 @@ public class WebServiceRestController {
 
     @RequestMapping(value = "customer/login", method = RequestMethod.GET)
     public ResponseEntity<Customer> getCustomerInfo(@RequestParam(name = "email") String email,
-                                   @RequestParam(name = "password") String password) throws CustomException {
+                                                    @RequestParam(name = "password") String password,
+                                                    @RequestParam(name = "token") String token) throws CustomException {
         CustomerEntity customerEntity = customerService.getCustomerByEmail(email);
         if(customerEntity==null)
             throw new CustomException("Email is not exist!");
@@ -70,6 +71,8 @@ public class WebServiceRestController {
                 ,customerEntity.getAddress()
                 ,customerEntity.getLongitude()
                 ,customerEntity.getLatitude());
+        customerEntity.setRegToken(token);
+        customerService.setCustomerById(customerEntity,customerEntity.getId());
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
 
@@ -101,7 +104,8 @@ public class WebServiceRestController {
 
     @RequestMapping(value = "provider/login", method = RequestMethod.GET)
     public ResponseEntity<Provider> getProviderInfo(@RequestParam(name = "email") String email,
-                                                    @RequestParam(name = "password") String password) throws CustomException {
+                                                    @RequestParam(name = "password") String password,
+                                                    @RequestParam(name = "token") String token) throws CustomException {
         ProviderEntity providerEntity = providerService.getProviderByEmail(email);
         if(providerEntity==null)
             throw new CustomException("Email is not exist!");
@@ -115,6 +119,8 @@ public class WebServiceRestController {
                 ,providerEntity.getLongitude()
                 ,providerEntity.getLatitude()
                 ,providerEntity.getImage());
+        providerEntity.setRegToken(token);
+        providerService.setProviderById(providerEntity,providerEntity.getId());
         return new ResponseEntity<Provider>(provider, HttpStatus.OK);
     }
 
@@ -264,11 +270,6 @@ public class WebServiceRestController {
         return new ResponseEntity<Integer>(providerServiceService.removeProviderServicebyProviderServiceId(providerServiceId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/booking/history", method = RequestMethod.GET)
-    public List<BookingHistory> getBookingHistory(@RequestParam(name = "customerId") int customerId) {
-        return bookingService.getBookingHistorybyCustomerId(customerId);
-    }
-
     @RequestMapping(value = "/rating", method = RequestMethod.GET)
     public ResponseEntity<ServiceRating> getRating(@RequestParam(name = "providerServiceId") int providerServiceId) throws CustomException {
         ServiceRating serviceRating = ratingService.getServiceRatingandServiceByProviderServiceId(providerServiceId);
@@ -324,6 +325,11 @@ public class WebServiceRestController {
         if(bookingService.getBookingById(bookingId)==null)
             throw new CustomException("bookingId is not valid!");
         return new ResponseEntity<Integer>(bookingService.setBookingStatusById(bookingId,status), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/booking/history", method = RequestMethod.GET)
+    public List<BookingHistory> getBookingHistory(@RequestParam(name = "customerId") int customerId) {
+        return bookingService.getBookingHistorybyCustomerId(customerId);
     }
 
     @RequestMapping(value = "/bookingDetail/add",method = RequestMethod.GET)

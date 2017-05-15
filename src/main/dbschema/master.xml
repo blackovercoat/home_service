@@ -32,6 +32,7 @@
     <include file="src/main/dbschema/R2.0/create_booking_detail.xml" />
     <include file="src/main/dbschema/R2.0/insert_data_for_customer.xml" />
     <include file="src/main/dbschema/R2.0/insert_data_for_provider.xml" />
+
     <include file="src/main/dbschema/R2.1/insert_data_for_catalog.xml" />
     <include file="src/main/dbschema/R2.1/insert_data_for_service.xml" />
     <include file="src/main/dbschema/R2.1/add_constraint_service.xml" />
@@ -59,5 +60,8 @@
     <include file="src/main/dbschema/R2.2/change_column_name_from_to.xml" />
     <include file="src/main/dbschema/R2.2/fix_constraint_for_table.xml"/>
     <include file="src/main/dbschema/R2.2/update_provider_long_lat.xml" />
+    <include file="src/main/dbschema/R2.2/add_key_columns_for_provider_customer.xml" />
+    <include file="src/main/dbschema/R2.2/create_table_customer_notification.xml" />
+    <include file="src/main/dbschema/R2.2/create_table_provider_notification.xml" />
 
 </databaseChangeLog>

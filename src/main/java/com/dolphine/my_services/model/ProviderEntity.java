@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"staffs","providerServices"})
+@EqualsAndHashCode(exclude = {"staffs","providerServices","providerNotificationEntities"})
 @Table(name = "provider")
 public class ProviderEntity {
 
@@ -45,6 +45,12 @@ public class ProviderEntity {
 
     @Column(name = "latitude")
     private float latitude;
+
+    @Column(name = "reg_token")
+    private String regToken;
+
+    @OneToMany(mappedBy = "provider")
+    private List<ProviderNotificationEntity> providerNotificationEntities;
 
     @OneToMany(mappedBy = "provider")
     private List<StaffEntity> staffs;

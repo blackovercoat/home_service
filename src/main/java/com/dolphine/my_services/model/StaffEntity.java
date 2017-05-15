@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"provider","bookings"})
+@EqualsAndHashCode(exclude = {"provider","bookings","bookingDetails"})
 @Table(name = "staff")
 public class StaffEntity implements Serializable {
 

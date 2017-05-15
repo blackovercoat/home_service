@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"customer", "staffs","providerServices"})
+@EqualsAndHashCode(exclude = {"customer", "staffs","providerServices","bookingDetails"})
 @Table(name = "booking")
 public class BookingEntity {
 
