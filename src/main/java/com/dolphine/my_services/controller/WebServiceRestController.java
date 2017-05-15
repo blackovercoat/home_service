@@ -66,10 +66,10 @@ public class WebServiceRestController {
     public ResponseEntity<Customer> getCustomerInfo(@RequestParam(name = "email") String email,
                                                     @RequestParam(name = "password") String password,
                                                     @RequestParam(name = "token") String token) throws CustomException {
-        CustomerEntity customerEntity = customerService.getCustomerByEmail(email);
+        CustomerEntity customerEntity = customerService.getCustomerByEmail(email.trim());
         if(customerEntity==null)
             throw new CustomException("Email is not exist!");
-        if(!password.equals(customerEntity.getPassword()))
+        if(!password.trim().equals(customerEntity.getPassword()))
             throw new CustomException("Your password is incorrect!");
         Customer customer = new Customer(customerEntity.getId()
                 ,customerEntity.getName()
@@ -128,10 +128,10 @@ public class WebServiceRestController {
     public ResponseEntity<Provider> getProviderInfo(@RequestParam(name = "email") String email,
                                                     @RequestParam(name = "password") String password,
                                                     @RequestParam(name = "token") String token) throws CustomException {
-        ProviderEntity providerEntity = providerService.getProviderByEmail(email);
+        ProviderEntity providerEntity = providerService.getProviderByEmail(email.trim());
         if(providerEntity==null)
             throw new CustomException("Email is not exist!");
-        if(!password.equals(providerEntity.getPassword()))
+        if(!password.trim().equals(providerEntity.getPassword()))
             throw new CustomException("Your password is incorrect!");
         Provider provider = new Provider(providerEntity.getId()
                 ,providerEntity.getName()
@@ -157,11 +157,11 @@ public class WebServiceRestController {
         if(customerService.getCustomerByPhoneNumber(phoneNumber)!=null)
             throw new CustomException("This phone number is already in use!");
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setEmail(email);
-        customerEntity.setName(name);
-        customerEntity.setPassword(password);
-        customerEntity.setPhoneNumber(phoneNumber);
-        customerEntity.setAddress(address);
+        customerEntity.setEmail(email.trim());
+        customerEntity.setName(name.trim());
+        customerEntity.setPassword(password.trim());
+        customerEntity.setPhoneNumber(phoneNumber.trim());
+        customerEntity.setAddress(address.trim());
         return new ResponseEntity<Customer>(customerService.addCustomer(customerEntity), HttpStatus.OK);
     }
     @RequestMapping(value = "provider/register", method = RequestMethod.GET)
