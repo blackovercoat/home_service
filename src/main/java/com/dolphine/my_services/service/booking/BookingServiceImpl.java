@@ -35,6 +35,10 @@ public class BookingServiceImpl implements BookingService{
         List<BookingEntity> bookingEntities = bookingRepository.findByCustomer_Id(customerId);
         List<BookingHistory> bookingHistories = new ArrayList<>();
         for (BookingEntity bookingEntity : bookingEntities){
+            List<Rating> ratings = new ArrayList<>();
+            List<Staff> staffs = new ArrayList<>();
+            List<StaffEntity> staffEntities = bookingEntity.getStaffs();
+            List<RatingEntity> ratingEntities = providerServiceRepository.getOne(bookingEntity.getProviderServices().getId()).getRatings();
             ServiceWebService services = new ServiceWebService(bookingEntity.getProviderServices().getService().getId()
                     ,bookingEntity.getProviderServices().getService().getName()
                     ,bookingEntity.getProviderServices().getService().getDescription()
@@ -48,10 +52,6 @@ public class BookingServiceImpl implements BookingService{
                     ,bookingEntity.getProviderServices().getProvider().getLongitude()
                     ,bookingEntity.getProviderServices().getProvider().getLatitude()
                     ,bookingEntity.getProviderServices().getProvider().getImage());
-            List<Rating> ratings = new ArrayList<>();
-            List<Staff> staffs = new ArrayList<>();
-            List<StaffEntity> staffEntities = bookingEntity.getStaffs();
-            List<RatingEntity> ratingEntities = providerServiceRepository.getOne(bookingEntity.getProviderServices().getId()).getRatings();
             for(StaffEntity staffEntity: staffEntities)
                 staffs.add(new Staff(staffEntity.getId()
                         ,staffEntity.getName()
@@ -74,17 +74,24 @@ public class BookingServiceImpl implements BookingService{
                         ,ratingEntity.getRatingDate()
                         ,ratingEntity.getProviderServices().getId()));
             }
+            ProviderServiceWebService providerServiceWebService = new ProviderServiceWebService(
+                    bookingEntity.getProviderServices().getId()
+                    , provider
+                    , services
+                    , bookingEntity.getProviderServices().getMaxPrice()
+                    , bookingEntity.getProviderServices().getMinPrice()
+                    , bookingEntity.getProviderServices().getDescription()
+                    , bookingEntity.getProviderServices().getFromTime()
+                    , bookingEntity.getProviderServices().getToTime()
+                    , ratings);
             bookingHistories.add(new BookingHistory(bookingEntity.getId()
                     ,bookingEntity.getCustomer().getId()
-                    ,bookingEntity.getProviderServices().getId()
+                    ,providerServiceWebService
                     ,bookingEntity.getBookingDate()
                     ,bookingEntity.getWorkingDate()
                     ,bookingEntity.getStatus()
                     ,bookingEntity.getDescription()
-                    ,services
-                    ,provider
-                    ,staffs
-                    ,ratings));
+                    ,staffs));
         }
         return bookingHistories;
     }

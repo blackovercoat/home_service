@@ -14,27 +14,21 @@ import java.util.List;
 public class BookingHistory {
     private int id;
     private int customerId;
-    private int providerServiceId;
+    private ProviderServiceWebService providerServiceWebService;
     private Date bookingDate;
     private Date workingDate;
     private int status;
     private String description;
-    private ServiceWebService services;
-    private Provider provider;
     private List<Staff> staffs;
-    private List<Rating> ratings;
 
-    public BookingHistory(int id, int customerId, int providerServiceId, Date bookingDate, Date workingDate, int status, String description, ServiceWebService services, Provider provider,List<Staff> staffs,List<Rating> ratings) {
+    public BookingHistory(int id, int customerId, ProviderServiceWebService providerServiceWebService, Date bookingDate, Date workingDate, int status, String description,List<Staff> staffs) {
         this.id = id;
         this.customerId = customerId;
-        this.providerServiceId = providerServiceId;
+        this.providerServiceWebService = providerServiceWebService;
         this.bookingDate = bookingDate;
         this.workingDate = workingDate;
         this.status = status;
         this.description = description;
-        this.services = services;
-        this.provider = provider;
         this.staffs = staffs;
-        this.ratings = ratings;
     }
 }

@@ -264,7 +264,7 @@ public class WebServiceRestController {
         return new ResponseEntity<Integer>(providerServiceService.removeProviderServicebyProviderServiceId(providerServiceId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/bookingHistory", method = RequestMethod.GET)
+    @RequestMapping(value = "/booking/history", method = RequestMethod.GET)
     public List<BookingHistory> getBookingHistory(@RequestParam(name = "customerId") int customerId) {
         return bookingService.getBookingHistorybyCustomerId(customerId);
     }
