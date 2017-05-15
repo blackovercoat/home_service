@@ -22,6 +22,7 @@
         <assertj-core-version>3.5.2</assertj-core-version>
         <slf4jVersion>1.6.1</slf4jVersion>
         <slf4jLog4j12>1.7.21</slf4jLog4j12>
+        <httpcomponents.httpclient.version>4.5.2</httpcomponents.httpclient.version>
 
     </properties>
 
