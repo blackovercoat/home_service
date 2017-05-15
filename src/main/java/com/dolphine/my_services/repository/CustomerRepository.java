@@ -27,6 +27,7 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer
             ", longitude=:longitude" +
             ", latitude=:latitude" +
             ", password=:password" +
+            ", regToken=:token" +
             ", address=:address where id=:id")
     int updateById(@Param(value = "id") int id
             ,@Param(value = "name") String name
@@ -35,5 +36,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer
             ,@Param(value = "longitude") float longitude
             ,@Param(value = "latitude") float latitude
             ,@Param(value = "password") String password
+            ,@Param(value = "token") String token
             ,@Param(value = "address") String address);
 }

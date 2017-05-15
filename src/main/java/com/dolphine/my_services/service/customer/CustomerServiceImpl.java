@@ -75,6 +75,7 @@ public class CustomerServiceImpl implements CustomerService {
                 ,customerEntity.getLongitude()
                 ,customerEntity.getLatitude()
                 ,customerEntity.getPassword()
+                ,customerEntity.getRegToken()
                 ,customerEntity.getAddress());
     }
 
@@ -86,6 +87,7 @@ public class CustomerServiceImpl implements CustomerService {
                 ,customerEntity.getLongitude()
                 ,customerEntity.getLatitude()
                 ,customerEntity.getPassword()
+                ,customerEntity.getRegToken()
                 ,customerEntity.getAddress());
     }
 

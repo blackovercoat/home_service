@@ -107,6 +107,7 @@ public class ProviderServiceImpl implements ProviderService{
                 ,providerForm.getLongitude()
                 ,providerForm.getLatitude()
                 ,providerForm.getImage()
+                ,null
                 ,providerForm.getPassword());
     }
 
@@ -119,6 +120,7 @@ public class ProviderServiceImpl implements ProviderService{
                 ,providerEntity.getLongitude()
                 ,providerEntity.getLatitude()
                 ,providerEntity.getImage()
+                ,providerEntity.getRegToken()
                 ,providerEntity.getPassword());
     }
 

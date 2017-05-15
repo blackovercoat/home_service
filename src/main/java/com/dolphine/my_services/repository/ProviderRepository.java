@@ -31,6 +31,7 @@ public interface ProviderRepository extends JpaRepository<ProviderEntity,Integer
             ", longitude=:longitude" +
             ", latitude=:latitude" +
             ", image=:image" +
+            ", regToken=:token" +
             ", password=:password where id=:id")
     int updateById(@Param(value = "id") int id
             , @Param(value = "name") String name
@@ -40,5 +41,6 @@ public interface ProviderRepository extends JpaRepository<ProviderEntity,Integer
             , @Param(value = "longitude") float longitude
             , @Param(value = "latitude") float latitude
             , @Param(value = "image") String image
+            , @Param(value = "token") String token
             , @Param(value = "password") String password);
 }
