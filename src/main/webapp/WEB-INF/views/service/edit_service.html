@@ -78,7 +78,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="price">Price:</label>
                                     <div class="col-sm-9">
-                                        <input id="price" name="price" type="number" class="form-control input-md" required="" th:text="${service.getPrice()}">
+                                        <input id="price" name="price" type="number" class="form-control input-md" required="" th:value="${service.getPrice()}">
                                         <label class="text-danger" ></label>
                                     </div>
                                 </div>
