@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/provider/**").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
                 .antMatchers("/service/**").access("hasAnyRole('ROLE_ADMIN')")
                 .antMatchers("/catalog/**").access("hasAnyRole('ROLE_ADMIN')")
+                .antMatchers("/statistic/**").access("hasAnyRole('ROLE_ADMIN')")
                 .antMatchers("/customer/**").access("hasAnyRole('ROLE_ADMIN')")
                 .and().formLogin().loginPage("/login").failureUrl("/login-error")
                 .usernameParameter("email")
