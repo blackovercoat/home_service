@@ -17,7 +17,6 @@ import java.util.List;
  * Created by PC on 5/5/2017.
  */
 @Controller
-@RequestMapping("/")
 public class ChartController {
     @Autowired
     final private ProviderService providerService;

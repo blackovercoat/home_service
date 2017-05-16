@@ -152,9 +152,9 @@ public class WebServiceRestController {
                                    @RequestParam(name = "name") String name,
                                    @RequestParam(name = "phoneNumber") String phoneNumber,
                                    @RequestParam(name = "address") String address) throws CustomException {
-        if(customerService.getCustomerByEmail(email)!=null)
+        if(customerService.getCustomerByEmail(email.trim())!=null)
             throw new CustomException("This email is already in use!");
-        if(customerService.getCustomerByPhoneNumber(phoneNumber)!=null)
+        if(customerService.getCustomerByPhoneNumber(phoneNumber.trim())!=null)
             throw new CustomException("This phone number is already in use!");
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setEmail(email.trim());

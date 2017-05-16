@@ -19,7 +19,6 @@ public class HomeController {
     AccountService accountService;
 
     @RequestMapping("/")
-
     String index(Principal principal, ModelMap model) {
         String email = principal.getName();
         AccountEntity acc = this.accountService.getAccountByEmail(email);
